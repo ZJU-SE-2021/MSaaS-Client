@@ -21,6 +21,7 @@ const Main = () => {
 
     return (
         <BottomNavigation
+            shifting
             navigationState={{ index, routes }}
             onIndexChange={setIndex}
             renderScene={renderScene}
