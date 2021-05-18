@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
-import { BottomNavigation, Text } from 'react-native-paper';
-import {View} from "react-native";
+import {BottomNavigation} from 'react-native-paper';
 import Home from "./home";
 import Appointments from "./appointments";
 import Mine from "./mine";
@@ -8,9 +7,9 @@ import Mine from "./mine";
 const Main = () => {
     const [index, setIndex] = useState(0);
     const [routes] = useState([
-        { key: 'home', title: '主页', icon: 'home' },
-        { key: 'appointment', title: '预约挂号', icon: 'calendar-plus' },
-        { key: 'mine', title: '我的', icon: 'account' },
+        {key: 'home', title: '主页', icon: 'home'},
+        {key: 'appointment', title: '预约挂号', icon: 'calendar-plus'},
+        {key: 'mine', title: '我的', icon: 'account'},
     ]);
 
     const renderScene = BottomNavigation.SceneMap({
@@ -22,7 +21,7 @@ const Main = () => {
     return (
         <BottomNavigation
             shifting
-            navigationState={{ index, routes }}
+            navigationState={{index, routes}}
             onIndexChange={setIndex}
             renderScene={renderScene}
         />

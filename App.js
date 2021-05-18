@@ -1,10 +1,6 @@
-import React, {createContext, useEffect, useReducer, useState} from 'react';
-import {DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
-import Main from "./components/main";
-import {StatusBar} from "expo-status-bar";
-import Login from "./components/login";
+import React, {useEffect, useReducer} from 'react';
 import Index from "./components";
-import {Reducer, InitialState, Context} from "./store/reducer";
+import {Context, InitialState, Reducer} from "./store/reducer";
 import {getContext} from "./store/localStorage";
 
 function init(dispatch) {

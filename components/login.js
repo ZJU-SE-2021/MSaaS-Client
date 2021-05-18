@@ -1,4 +1,4 @@
-import {Appbar, Caption, FAB, Avatar, TextInput, Title} from 'react-native-paper';
+import {Appbar, Avatar, Caption, FAB, TextInput, Title} from 'react-native-paper';
 import React, {useContext, useState} from "react";
 import {StyleSheet, View} from "react-native";
 import {Context} from "../store/reducer";
@@ -47,10 +47,10 @@ export default function Login() {
     return (
         <View>
             <Appbar.Header>
-                <Appbar.Content title="MSaaS" subtitle="智能医疗系统" />
+                <Appbar.Content title="MSaaS" subtitle="智能医疗系统"/>
             </Appbar.Header>
             <View style={style.outerView}>
-                <Avatar.Icon size={128} icon="account" />
+                <Avatar.Icon size={128} icon="account"/>
                 <Title style={style.title}>登录</Title>
                 <Caption style={style.caption}>请输入您的用户名和密码</Caption>
                 <View style={style.textBar}>
@@ -58,7 +58,7 @@ export default function Login() {
                         label="用户名"
                         mode="flat"
                         value={username}
-                        left={<TextInput.Icon name='account' />}
+                        left={<TextInput.Icon name='account'/>}
                         onChangeText={setUsername}
                     />
                 </View>
@@ -67,8 +67,10 @@ export default function Login() {
                         label="密码"
                         mode="flat"
                         value={password}
-                        left={<TextInput.Icon name='key' />}
-                        right={<TextInput.Icon name='eye' onPress={() => {setShowPassword(!showPassword)}} />}
+                        left={<TextInput.Icon name='key'/>}
+                        right={<TextInput.Icon name='eye' onPress={() => {
+                            setShowPassword(!showPassword)
+                        }}/>}
                         secureTextEntry={!showPassword}
                         onChangeText={setPassword}
                     />

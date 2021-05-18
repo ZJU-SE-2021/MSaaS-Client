@@ -1,5 +1,4 @@
 import {createContext} from "react";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const Reducer = (state, action) => {
     switch (action.type) {

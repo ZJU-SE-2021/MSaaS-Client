@@ -1,7 +1,7 @@
 import {Appbar, Button} from 'react-native-paper';
-import React, {useContext, useEffect, useReducer} from "react";
+import React, {useContext} from "react";
 import {storeContext} from "../store/localStorage";
-import {Context, InitialState, Reducer} from "../store/reducer";
+import {Context} from "../store/reducer";
 import {View} from "react-native";
 
 function logout(state, dispatch) {
@@ -14,7 +14,7 @@ export default function Mine() {
     return (
         <View>
             <Appbar.Header>
-                <Appbar.Content title="我的" subtitle="MSaaS" />
+                <Appbar.Content title="我的" subtitle="MSaaS"/>
             </Appbar.Header>
             <Button icon="logout" mode="contained" onPress={() => logout(state, dispatch)}>
                 退出登录

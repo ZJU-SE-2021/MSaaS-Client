@@ -2,7 +2,6 @@ import React, {useContext} from "react";
 import Main from "./main";
 import Login from "./login";
 import {Context} from "../store/reducer";
-import {View} from "react-native";
 import {DefaultTheme, Provider as PaperProvider} from "react-native-paper";
 import {StatusBar} from "expo-status-bar";
 

@@ -15,7 +15,7 @@ export const getContext = async () => {
     try {
         const jsonValue = await AsyncStorage.getItem(globalContextKey)
         return jsonValue != null ? JSON.parse(jsonValue) : null;
-    } catch(e) {
+    } catch (e) {
         throw e
     }
 }
