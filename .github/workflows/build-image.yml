@@ -15,6 +15,6 @@ jobs:
       env:
         IMAGE_TAG: latest # ${{ github.sha }}
       run: |
-        docker login --username=${{ secrets.ALIYUN_REGISTRY_USERNAME }} --password=${{ secrets.ALIYUN_REGISTRY_PASSWORD }} registry.cn-hangzhou.aliyuncs.com
+        docker login --username="${{ secrets.ALIYUN_REGISTRY_USERNAME }}" --password="${{ secrets.ALIYUN_REGISTRY_PASSWORD }}" registry.cn-hangzhou.aliyuncs.com
         docker build -t registry.cn-hangzhou.aliyuncs.com/ncj/msaas_client:$IMAGE_TAG .
         docker push registry.cn-hangzhou.aliyuncs.com/ncj/msaas_client:$IMAGE_TAG
