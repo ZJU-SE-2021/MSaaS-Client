@@ -9,7 +9,7 @@ import {
 
 
 import * as React from 'react';
-import { List,Card, Title, Divider } from 'react-native-paper';
+import { List,Card, Title, Divider, Appbar} from 'react-native-paper';
 
 
 //样式
@@ -35,7 +35,7 @@ const style = StyleSheet.create({
     borderRadius: 5,  // 设置圆角边  
     backgroundColor: 'white',
     alignItems: 'center',
-    marginLeft: 8,  
+    marginLeft: 10,  
     marginRight: 8,  
   },
   searchIcon: {//搜索图标  
@@ -50,13 +50,7 @@ const style = StyleSheet.create({
     backgroundColor:'transparent',
     fontSize:15,
   },
-  voiceIcon: {  
-      marginLeft: 5,  
-      marginRight: 8,  
-      width: 15,  
-      height: 20,  
-      resizeMode: 'stretch'  
-  }, 
+
   scanIcon: {//搜索图标  
       height: 26.7,  
       width: 26.7,  
@@ -71,27 +65,57 @@ const style = StyleSheet.create({
   }
 }); 
 
-const MyList = () => {
+
+
+
+// export default class MyList extends Component{
+//   render(){
+//       return (
+//          <View style={styles.container}> 
+
+//           <Image source={require('./images/header/header_logo.png')} style={styles.logo}/>  
+
+//          
+
+//           <Image source={require('./images/header/icon_qr.png')} style={styles.scanIcon}/>           
+
+//          </View>
+//       )
+//   }
+// }
+
+
+// const MyList() => {
+export default function  MyList()   {
 const [expanded, setExpanded] = React.useState(true);
 const handlePress = () => setExpanded(!expanded);
 
 return (
   <View >
-  <List.Section >    
-    <View>   
-      <List.Accordion
-        style = {style.container}
-        title="门诊部">
-        <Divider />
-        <List.Item title="呼吸科" />
-        <List.Item title="心内科" />
-        <List.Item title="消化科" />
-        <List.Item title="外科" />
-        <List.Item title="儿科" />
-        <List.Item title="妇科" />
-        <List.Item title="眼科" />
-        <List.Item title="耳鼻喉科" />
-      </List.Accordion>
+      <Appbar.Header>
+          {/* <Appbar.Content /> */}
+          <View style={style.searchBox}>      
+               <TextInput style={style.inputText}
+                         keyboardType='web-search'  
+                           placeholder='  输入关键字' />  
+<Image source={require('../assets/search_icon.png')} style={style.searchIcon}/>  
+             </View>
+      </Appbar.Header>
+     <List.Section >    
+        <View>   
+          <List.Accordion
+            style = {style.container}
+            title="门诊部">
+            <Divider />
+            <List.Item title="呼吸科" />
+            <List.Item title="心内科" />
+            <List.Item title="消化科" />
+            <List.Item title="外科" />
+            <List.Item title="儿科" />
+            <List.Item title="妇科" />
+            <List.Item title="眼科" />
+            <List.Item title="耳鼻喉科" />
+          </List.Accordion>
       <Divider />
     </View>
 
@@ -130,7 +154,7 @@ return (
 );
 };
 
-export default MyList;
+// export default MyList;
 
 
 
