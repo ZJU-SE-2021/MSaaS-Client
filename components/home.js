@@ -10,6 +10,21 @@ class Rx {
     }
 }
 
+const style = StyleSheet.create({
+    greeting : {
+        padding : 10,
+        margin : 10,
+        fontSize : 20
+    },
+    cards : {
+        marginBottom : 10,
+        marginHorizontal : 10,
+    },
+    rxUsage : {
+        float : 'right'
+    }
+})
+
 export default function Home() {
     const appointment = {
         time : new Date("2021/5/25 9:30"),
@@ -30,32 +45,32 @@ export default function Home() {
                 <Appbar.Content title="MSaaS" subtitle="智能医疗系统"/>
             </Appbar.Header>
             <View>
-                <Text>早上好，小明</Text>
+                <Text style={ style.greeting }>早上好，小明</Text>
             </View>
-            <Card>
+            <Card style={ style.cards }>
                 <Card.Title title="智能诊疗" subtitle="快速为您推荐合适的诊疗方案。"/>
             </Card>
-            <Card>
+            <Card style={ style.cards }>
                 <Card.Title title={ parseInt((appointment.time - (new Date())) / (24*3600*1000)) + '天后的诊疗预约' }/>
                 <Card.Content>
                     <Text>{ appointment.doctor }</Text>
-                    <Text>{ appointment.time.toUTCString() }</Text>
+                    <Text>{ appointment.time.toLocaleString('zh-CN', { hour12 : false }) }</Text>
                     <Text>{ appointment.hospital + ' | ' + appointment.department }</Text>
                 </Card.Content>
             </Card>
-            <Card>
+            <Card style={ style.cards }>
                 <Card.Title title={ prescription.doctor + '开具的处方' }/>
                 <Card.Content>
                     { prescription.rxes.map((rx) => {
                         return (
                             <View>
-                                <Text>{ rx.rxName + ' 1日' + rx.timesPerDay + '次，1次' + rx.volumePerTime}</Text>
+                                <Text>{ rx.rxName }<Text style={ style.rxUsage }>{ ' 1日' + rx.timesPerDay + '次，1次' + rx.volumePerTime }</Text></Text>
                             </View>
                         )
                     }) }
                 </Card.Content>
             </Card>
-            <Card>
+            <Card style={ style.cards }>
                 <Card.Title title={ prescription.doctor + '的医嘱' }/>
                 <Card.Content>
                     <Text>{ prescription.comment }</Text>
