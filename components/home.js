@@ -1,4 +1,4 @@
-import {Appbar, Card,} from 'react-native-paper';
+import {Appbar, Card} from 'react-native-paper';
 import {StyleSheet, View, Text} from "react-native";
 import React from "react";
 
@@ -20,8 +20,12 @@ const style = StyleSheet.create({
         marginBottom : 10,
         marginHorizontal : 10,
     },
+    rxList : {
+        flexDirection : 'row'
+    },
     rxUsage : {
-        float : 'right'
+        position : 'absolute',
+        right : 0
     }
 })
 
@@ -63,8 +67,9 @@ export default function Home() {
                 <Card.Content>
                     { prescription.rxes.map((rx) => {
                         return (
-                            <View>
-                                <Text>{ rx.rxName }<Text style={ style.rxUsage }>{ ' 1日' + rx.timesPerDay + '次，1次' + rx.volumePerTime }</Text></Text>
+                            <View style={ style.rxList }>
+                                <Text>{ rx.rxName }</Text>
+                                <Text style={style.rxUsage}>{ ' 1日' + rx.timesPerDay + '次，1次' + rx.volumePerTime }</Text>
                             </View>
                         )
                     }) }
