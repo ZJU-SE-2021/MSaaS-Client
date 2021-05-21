@@ -65,11 +65,11 @@ export default function Home() {
             <Card style={ style.cards }>
                 <Card.Title title={ prescription.doctor + '开具的处方' }/>
                 <Card.Content>
-                    { prescription.rxes.map((rx) => {
+                    { prescription.rxes.map((rx, index) => {
                         return (
-                            <View style={ style.rxList }>
+                            <View key={ index } style={ style.rxList }>
                                 <Text>{ rx.rxName }</Text>
-                                <Text style={style.rxUsage}>{ ' 1日' + rx.timesPerDay + '次，1次' + rx.volumePerTime }</Text>
+                                <Text style={ style.rxUsage }>{ ' 1日' + rx.timesPerDay + '次，1次' + rx.volumePerTime }</Text>
                             </View>
                         )
                     }) }
