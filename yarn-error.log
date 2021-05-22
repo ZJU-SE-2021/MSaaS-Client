@@ -2,7 +2,7 @@ Arguments:
   /usr/local/bin/node /usr/local/bin/yarn
 
 PATH: 
-  /usr/local/opt/opencv@2/bin:/usr/local/opt/opencv@2/bin:/Users/zhying/anaconda3/bin:/Users/zhying/anaconda3/condabin:/usr/local/opt/ruby/bin:/Users/zhying/anaconda3/bin:/Users/zhying/bin:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/Library/TeX/texbin:/Users/zhying/Downloads/apache-maven-3.8.1/bin
+  /usr/local/lib/node_modules/:/usr/local/opt/opencv@2/bin:/usr/local/opt/opencv@2/bin:/usr/local/opt/ruby/bin:/Users/zhying/anaconda3/bin:/Users/zhying/bin:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/Library/TeX/texbin:/usr/local/lib/node_modules:/usr/local/opt/opencv@2/bin:/Users/zhying/anaconda3/bin:/Users/zhying/anaconda3/condabin:/usr/local/opt/ruby/bin:/Users/zhying/bin:/Users/zhying/Downloads/apache-maven-3.8.1/bin:/Users/zhying/Downloads/apache-maven-3.8.1/bin
 
 Yarn version: 
   1.22.10
@@ -14,7 +14,7 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: EACCES: permission denied, unlink '/Users/zhying/Diane/hw/junior/2nd/rg/project/MSaaS-Client/node_modules/@babel/preset-env/node_modules/@babel/plugin-proposal-async-generator-functions/node_modules/.bin/semver'
+  Error: EACCES: permission denied, unlink '/Users/zhying/Diane/hw/junior/2nd/rg/project/MSaaS-Client/node_modules/.bin/7z'
 
 npm manifest: 
   {
