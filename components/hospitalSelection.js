@@ -1,6 +1,8 @@
 import { Searchbar, List, FAB, Card } from 'react-native-paper';
 import React,{ useState } from "react";
 import { View, StyleSheet, ScrollView } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
 
 class Hospital {
     constructor(name, distance) {
@@ -37,6 +39,7 @@ const styles = StyleSheet.create({
 export const zhankeng = require('../assets/zhankeng.png'); 
 
 export default function HospitalSelection() {
+    const navigation = useNavigation();
     const [searchQuery, setSearchQuery] = useState('');
     const [cardOrList, setCardOrList] = useState(false);
     const onChangeSearch = query => setSearchQuery(query);
@@ -56,7 +59,7 @@ export default function HospitalSelection() {
                                 return cardOrList ? (
                                     <List.Item key={ index } title={ hospital.name } description={ hospital.distance + ' km' }/>
                                 ) : (
-                                    <Card style={ styles.card } key={ index }>
+                                    <Card style={ styles.card } key={ index } onPress={() => navigation.navigate('Detail')}>
                                         <Card.Title title={ hospital.name } subtitle={ hospital.distance + ' km' }/>
                                         <Card.Cover source={ zhankeng } />
                                     </Card>

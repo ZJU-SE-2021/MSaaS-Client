@@ -11,11 +11,7 @@ export default function Appointments() {
             <Appbar.Header>
                 <Appbar.Content title="预约挂号" subtitle="MSaaS"/>
             </Appbar.Header>
-            {/* <View alignItems='center'> 
-                <MyList >
-                </MyList>
-            </View> */}
-            <HospitalSelection />
+            <HospitalSelection/>
         </View>
     )
 }
