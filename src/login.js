@@ -1,4 +1,4 @@
-import {Appbar, Avatar, Caption, FAB, TextInput, Title} from 'react-native-paper';
+import {Appbar, Avatar, Caption, FAB, Snackbar, TextInput, Title} from 'react-native-paper';
 import React, {useContext, useState} from "react";
 import {StyleSheet, View} from "react-native";
 import {Context} from "../store/reducer";
@@ -30,7 +30,10 @@ const style = StyleSheet.create({
     },
     caption: {
         fontSize: 18,
-    }
+    },
+    container: {
+        flex: 1,
+    },
 });
 
 export default function Login() {
@@ -38,6 +41,8 @@ export default function Login() {
     const [password, setPassword] = useState('')
     const [showPassword, setShowPassword] = useState(false)
     const [isLoading, setLoading] = useState(false)
+    const [showMessage, setShowMessage] = useState(false)
+    const [message, setMessage] = useState('')
 
     const [state, dispatch] = useContext(Context)
     const userApi = new UsersApi()
@@ -45,17 +50,33 @@ export default function Login() {
     async function handleLogin() {
         setLoading(true)
         const loginForm = {username, password}
-        const res = await userApi.usersLoginPost({loginForm})
-        dispatch({type: 'SET_LOGIN', payload: res})
-        storeContext({
-            loginState: true,
-            userProfile: res.user,
-            jwtToken: res.token
-        }).then()
+        try {
+            const res = await userApi.usersLoginPost({loginForm})
+            dispatch({type: 'SET_LOGIN', payload: res})
+            storeContext({
+                loginState: true,
+                userProfile: res.user,
+                jwtToken: res.token
+            }).then()
+        } catch (e) {
+            switch (e.status) {
+                case 400:
+                    setMessage('用户名或密码错误')
+                    break
+                case 500:
+                    setMessage('服务器错误')
+                    break
+                default:
+                    setMessage('网络错误')
+                    break
+            }
+            setShowMessage(true)
+            setLoading(false)
+        }
     }
 
     return (
-        <View>
+        <View style={style.container}>
             <Appbar.Header>
                 <Appbar.Content title="MSaaS" subtitle="智能医疗系统"/>
             </Appbar.Header>
@@ -99,6 +120,12 @@ export default function Login() {
                     onPress={() => handleLogin()}
                 />
             </View>
+            <Snackbar
+                visible={showMessage}
+                onDismiss={() => setShowMessage(false)}
+            >
+                {message}
+            </Snackbar>
         </View>
     )
 }
