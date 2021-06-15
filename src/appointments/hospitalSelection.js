@@ -1,6 +1,6 @@
 import {Searchbar, List, FAB, Card} from 'react-native-paper';
 import React, {useState} from "react";
-import {View, StyleSheet, ScrollView} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import ScreenWrapper from "../components/ScreenWrapper";
 
@@ -56,7 +56,7 @@ export default function HospitalSelection() {
         <View style={styles.view}>
             <Searchbar placeholder='搜索医院' onChangeText={onChangeSearch} value={searchQuery}/>
             <ScreenWrapper>
-                <ScrollView contentContainerStyle={!cardOrList ? styles.scrollView : ''}>
+                <View style={!cardOrList ? styles.scrollView : ''}>
                     {hospitals.filter((hospital) => {
                         return (hospital.name.includes(searchQuery))
                     })
@@ -72,7 +72,7 @@ export default function HospitalSelection() {
                                 </Card>
                             )
                         })}
-                </ScrollView>
+                </View>
             </ScreenWrapper>
             <FAB
                 style={styles.fab}
