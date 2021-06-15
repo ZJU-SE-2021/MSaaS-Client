@@ -1,6 +1,6 @@
 import { Appbar } from 'react-native-paper';
 import React from "react";
-import MyList from './department';
+import DepartmentSelection from './department';
 import { View } from 'react-native';
 import HospitalSelection from './hospitalSelection'
 
@@ -13,5 +13,6 @@ export default function Appointments() {
             </Appbar.Header>
             <HospitalSelection/>
         </View>
+         
     )
 }
