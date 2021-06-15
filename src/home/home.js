@@ -11,19 +11,19 @@ class Rx {
 }
 
 const style = StyleSheet.create({
-    greeting : {
+    greeting: {
         padding : 10,
         margin : 10,
         fontSize : 20
     },
-    cards : {
+    cards: {
         marginBottom : 10,
         marginHorizontal : 10,
     },
-    rxList : {
+    rxList: {
         flexDirection : 'row'
     },
-    rxUsage : {
+    rxUsage: {
         position : 'absolute',
         right : 0
     }
