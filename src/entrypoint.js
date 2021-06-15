@@ -2,7 +2,7 @@ import React from 'react'
 import {NavigationContainer} from "@react-navigation/native";
 import {createStackNavigator} from "@react-navigation/stack";
 import Main from "./main";
-import MyList from "./appointments/department";
+import DepartmentList from "./appointments/department";
 
 const Stack = createStackNavigator();
 
@@ -11,7 +11,7 @@ export default function Entrypoint() {
         <NavigationContainer>
             <Stack.Navigator className={'debug'} initialRouteName="Hospital" screenOptions={{headerShown: false}}>
                 <Stack.Screen name='Home' component={Main}/>
-                <Stack.Screen name='Detail' component={MyList}/>
+                <Stack.Screen name='Detail' component={DepartmentList}/>
             </Stack.Navigator>
         </NavigationContainer>
     )
