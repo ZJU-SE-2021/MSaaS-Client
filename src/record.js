@@ -14,7 +14,7 @@ class Record {
 
 const style = StyleSheet.create({
     fab: {
-        position: 'absolute', 
+        position: 'absolute',
         margin: 16,
         right: 0,
         bottom: 0,
@@ -24,11 +24,11 @@ const style = StyleSheet.create({
         justifyContent: 'space-around',
         marginVertical: 3,
         flexWrap: 'wrap',
-        height: 700 
+        height: 700
     },
     card: {
-        marginBottom:10,
-        marginTop:10,
+        marginBottom: 10,
+        marginTop: 10,
         alignSelf: 'center',
         width: '95%',
         backgroundColor: '#ffffff',
@@ -65,30 +65,30 @@ export default function RecordSelection() {
                 })
                     .map((record, index) => {
                         return (
-                                
-                              
-                                (record.status == "done")?
-                                (<List.Item style={style.card} key={record.date} title={record.hospital + ' ' + record.department} 
-                                left={props => <List.Icon {...props} icon="chevron-down-circle-outline"/>}
-                                right={props =>  <FAB style={style.fab} label="诊疗页面"/>}
-                                
-                                description={record.date} ></List.Item>)
-                                :((record.status == "pending")?
-                                (<List.Item style={style.card} key={record.date} title={record.hospital + ' ' + record.department} 
-                                left={props => <List.Icon {...props} icon={"briefcase"} />}
-                                right={props =>  <FAB style={style.fab} label="诊疗页面"/>}
-                                description={record.date}  ></List.Item>)
-                                :
-                                (<List.Item style={style.card} key={record.date} title={record.hospital + ' ' + record.department} 
-                                left={props => <List.Icon {...props} icon="calendar" />}
-                                right={props =>  <FAB style={style.fab} label="诊疗页面"/>}
-                                description={record.date} ></List.Item>)
+
+
+                            (record.status == "done") ?
+                                (<List.Item style={style.card} key={record.date} title={record.hospital + ' ' + record.department}
+                                    left={props => <List.Icon {...props} icon="chevron-down-circle-outline" />}
+                                    right={props => <FAB style={style.fab} label="诊疗页面" />}
+
+                                    description={record.date} ></List.Item>)
+                                : ((record.status == "pending") ?
+                                    (<List.Item style={style.card} key={record.date} title={record.hospital + ' ' + record.department}
+                                        left={props => <List.Icon {...props} icon={"briefcase"} />}
+                                        right={props => <FAB style={style.fab} label="诊疗页面" />}
+                                        description={record.date}  ></List.Item>)
+                                    :
+                                    (<List.Item style={style.card} key={record.date} title={record.hospital + ' ' + record.department}
+                                        left={props => <List.Icon {...props} icon="calendar" />}
+                                        right={props => <FAB style={style.fab} label="诊疗页面" />}
+                                        description={record.date} ></List.Item>)
 
                                 )
-                                    
-                               
-                                
-                
+
+
+
+
                         )
                     })}
             </ScrollView>

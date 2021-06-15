@@ -1,12 +1,12 @@
 import {Appbar, Button} from 'react-native-paper';
 import React, {useContext} from "react";
-import {storeContext} from "../store/localStorage";
-import {Context} from "../store/reducer";
+import {storeContext} from "../../store/localStorage";
+import {Context} from "../../store/reducer";
 import {View} from "react-native";
 import RecordSelection from "./record"
 
 function logout(state, dispatch) {
-    dispatch({type: 'SET_LOGIN', payload: false})
+    dispatch({type: 'SET_LOGOUT'})
     storeContext({loginState: false}).then()
 }
 
