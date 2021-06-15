@@ -13,7 +13,7 @@
  */
 
 
-export const BASE_PATH = "http://localhost:8010/proxy/api".replace(/\/+$/, "");
+export const BASE_PATH = "https://msaas.app.ncj.wiki/api".replace(/\/+$/, "");
 
 const isBlob = (value: any) => typeof Blob !== 'undefined' && value instanceof Blob;
 

@@ -1,19 +1,33 @@
-import {createContext} from "react";
+import {createContext} from "react"
 
 export const Reducer = (state, action) => {
     switch (action.type) {
+        case 'RESTORE_CONTEXT':
+            return action.payload
         case 'SET_LOGIN':
+            const {token, user} = action.payload
             return {
                 ...state,
-                loginState: action.payload
-            };
+                loginState: true,
+                userProfile: user,
+                jwtToken: token
+            }
+        case 'SET_LOGOUT':
+            return {
+                ...state,
+                loginState: false,
+                userProfile: {},
+                jwtToken: ''
+            }
         default:
-            return state;
+            return state
     }
 };
 
 export const InitialState = {
     loginState: false,
+    userProfile: {},
+    jwtToken: ''
 }
 
-export const Context = createContext(InitialState);
+export const Context = createContext(InitialState)

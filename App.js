@@ -3,21 +3,22 @@ import Index from "./src";
 import {Context, InitialState, Reducer} from "./store/reducer";
 import {getContext} from "./store/localStorage";
 
-function init(dispatch) {
-    try {
-        getContext().then((res) => {
-            if (res) {
-                dispatch({type: 'SET_LOGIN', payload: res.loginState});
-            }
-        })
-    } catch (e) {
-        console.log(e)
-    }
-}
-
 export default function App() {
     const [state, dispatch] = useReducer(Reducer, InitialState);
-    useEffect(() => init(dispatch), []);
+
+    function init() {
+        try {
+            getContext().then((res) => {
+                if (res) {
+                    dispatch({type: 'RESTORE_CONTEXT', payload: res});
+                }
+            })
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    useEffect(() => init(), []);
     return (
             <Context.Provider value={[state, dispatch]}>
                 <Index/>

@@ -5,7 +5,7 @@ import {Context} from "../../store/reducer";
 import {View} from "react-native";
 
 function logout(state, dispatch) {
-    dispatch({type: 'SET_LOGIN', payload: false})
+    dispatch({type: 'SET_LOGOUT'})
     storeContext({loginState: false}).then()
 }
 

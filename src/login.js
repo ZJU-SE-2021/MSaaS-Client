@@ -3,11 +3,8 @@ import React, {useContext, useState} from "react";
 import {StyleSheet, View} from "react-native";
 import {Context} from "../store/reducer";
 import {storeContext} from "../store/localStorage";
-
-function login(state, dispatch) {
-    dispatch({type: 'SET_LOGIN', payload: true})
-    storeContext({loginState: true}).then()
-}
+import {UsersApi} from '../network'
+import DialogWithLoadingIndicator from "./components/Dialog";
 
 const style = StyleSheet.create({
     outerView: {
@@ -16,11 +13,8 @@ const style = StyleSheet.create({
         width: '100%',
     },
     textBar: {
-        // padding: 0,
         marginTop: 10,
         marginBottom: 10,
-        // marginLeft: 20,
-        // marginRight: 20,
         paddingLeft: 20,
         paddingRight: 20,
         width: '100%',
@@ -40,15 +34,37 @@ const style = StyleSheet.create({
 });
 
 export default function Login() {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
     const [showPassword, setShowPassword] = useState(false)
-    const [state, dispatch] = useContext(Context);
+    const [isLoading, setLoading] = useState(false)
+
+    const [state, dispatch] = useContext(Context)
+    const userApi = new UsersApi()
+
+    async function handleLogin() {
+        setLoading(true)
+        const loginForm = {username, password}
+        const res = await userApi.usersLoginPost({loginForm})
+        dispatch({type: 'SET_LOGIN', payload: res})
+        storeContext({
+            loginState: true,
+            userProfile: res.user,
+            jwtToken: res.token
+        }).then()
+    }
+
     return (
         <View>
             <Appbar.Header>
                 <Appbar.Content title="MSaaS" subtitle="智能医疗系统"/>
             </Appbar.Header>
+            <DialogWithLoadingIndicator
+                visible={isLoading}
+                close={() => setLoading(false)}
+                title={'请稍后'}
+                content={'正在登录...'}
+            />
             <View style={style.outerView}>
                 <Avatar.Icon size={128} icon="account"/>
                 <Title style={style.title}>登录</Title>
@@ -80,7 +96,7 @@ export default function Login() {
                     small
                     icon="login"
                     label="登录"
-                    onPress={() => login(state, dispatch)}
+                    onPress={() => handleLogin()}
                 />
             </View>
         </View>
