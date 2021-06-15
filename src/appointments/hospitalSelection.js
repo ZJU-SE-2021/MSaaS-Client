@@ -2,6 +2,7 @@ import { Searchbar, List, FAB, Card } from 'react-native-paper';
 import React,{ useState } from "react";
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import ScreenWrapper from "../components/ScreenWrapper";
 
 
 class Hospital {
@@ -13,20 +14,19 @@ class Hospital {
 
 const styles = StyleSheet.create({
     view : {
-
+        flex: 1,
     },
     fab : {
-        position : 'absolute', // TODO: float at the right bottom of the view
+        position : 'absolute',
         margin : 16,
         right : 0,
-        bottom : -80,
+        bottom : 0,
     },
     scrollView : {
         flexDirection : 'row',
         justifyContent : 'space-around',
         marginVertical: 3,
         flexWrap: 'wrap',
-        height : 700 // TODO: dynamic height
     },
     card : {
         marginHorizontal : 10,
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     }
 })
 
-export const zhankeng = require('../../assets/zhankeng.png');
+export const picPlaceHolder = require('../../assets/zhankeng.png');
 
 export default function HospitalSelection() {
     const navigation = useNavigation();
@@ -53,19 +53,21 @@ export default function HospitalSelection() {
     return (
         <View style={ styles.view }>
             <Searchbar placeholder='搜索医院' onChangeText={onChangeSearch} value={searchQuery}/>
-            <ScrollView contentContainerStyle={ !cardOrList ? styles.scrollView : '' }>
-                { hospitals .filter((hospital) => { return (hospital.name.includes(searchQuery)) })
-                            .map((hospital, index) => {
-                                return cardOrList ? (
-                                    <List.Item key={ index } title={ hospital.name } description={ hospital.distance + ' km' }/>
-                                ) : (
-                                    <Card style={ styles.card } key={ index } onPress={() => navigation.navigate('Detail')}>
-                                        <Card.Title title={ hospital.name } subtitle={ hospital.distance + ' km' }/>
-                                        <Card.Cover source={ zhankeng } />
-                                    </Card>
-                                )
-                            }) }
-            </ScrollView>
+            <ScreenWrapper>
+                <ScrollView contentContainerStyle={ !cardOrList ? styles.scrollView : '' }>
+                    { hospitals .filter((hospital) => { return (hospital.name.includes(searchQuery)) })
+                        .map((hospital, index) => {
+                            return cardOrList ? (
+                                <List.Item key={ index } title={ hospital.name } description={ hospital.distance + ' km' }/>
+                            ) : (
+                                <Card style={ styles.card } key={ index } onPress={() => navigation.navigate('Detail')}>
+                                    <Card.Title title={ hospital.name } subtitle={ hospital.distance + ' km' }/>
+                                    <Card.Cover source={ picPlaceHolder } />
+                                </Card>
+                            )
+                        }) }
+                </ScrollView>
+            </ScreenWrapper>
             <FAB
                 style={ styles.fab }
                 small

@@ -17,7 +17,6 @@ export default function Mine() {
             <Appbar.Header >
                 <Appbar.Content title="我的" subtitle="MSaaS"/>
             </Appbar.Header>
-            
             <RecordSelection/>
             <Button icon="logout" mode="contained" onPress={() => logout(state, dispatch)}>
                 退出登录
