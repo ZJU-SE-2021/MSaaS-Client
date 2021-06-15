@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {BottomNavigation} from 'react-native-paper';
-import Home from "./home";
-import Appointments from "./appointments";
-import Mine from "./mine";
+import Home from "./home/home";
+import Appointments from "./appointments/appointments";
+import Mine from "./mine/mine";
 
 const Main = () => {
     const [index, setIndex] = useState(0);

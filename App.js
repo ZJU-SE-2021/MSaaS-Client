@@ -1,5 +1,5 @@
 import React, {useEffect, useReducer} from 'react';
-import Index from "./components";
+import Index from "./src";
 import {Context, InitialState, Reducer} from "./store/reducer";
 import {getContext} from "./store/localStorage";
 

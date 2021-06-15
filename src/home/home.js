@@ -31,7 +31,7 @@ const style = StyleSheet.create({
 
 export default function Home() {
     const appointment = {
-        time : new Date("2021/5/25 9:30"),
+        time : new Date("2021/6/25 9:30"),
         doctor : "王医生",
         hospital : "杭州市综合医院",
         department : "呼吸科"

@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     }
 })
 
-export const zhankeng = require('../assets/zhankeng.png'); 
+export const zhankeng = require('../../assets/zhankeng.png');
 
 export default function HospitalSelection() {
     const navigation = useNavigation();

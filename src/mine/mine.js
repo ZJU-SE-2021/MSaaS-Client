@@ -1,7 +1,7 @@
 import {Appbar, Button} from 'react-native-paper';
 import React, {useContext} from "react";
-import {storeContext} from "../store/localStorage";
-import {Context} from "../store/reducer";
+import {storeContext} from "../../store/localStorage";
+import {Context} from "../../store/reducer";
 import {View} from "react-native";
 
 function logout(state, dispatch) {
