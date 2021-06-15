@@ -13,6 +13,12 @@ yarn start
 
 Use `Expo Go` app on your phone or web browser for development
 
+### OpenAPI Code Generation
+
+```bash
+openapi-generator generate -i https://msaas.app.ncj.wiki/api/swagger/v1/swagger.json -g typescript-fetch
+```
+
 ## Docs & Refs
 
 Below are docs and references that might be useful
