@@ -6,4 +6,4 @@ COPY . ./
 RUN yarn install && yes | npx expo build:web
 
 FROM nginx:1.19.10-alpine
-COPY --from=build-env /build/web-build /usr/share/nginx/html/
+COPY --from=build-env /build/web-build /usr/share/nginx/html/webapp
