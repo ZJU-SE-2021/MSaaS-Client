@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     }
 })
 
-export const picPlaceHolder = require('../../assets/hospital-place-holder.png');
+const picPlaceHolder = require('../../assets/hospital-place-holder.png');
 
 export default function HospitalSelection() {
     const navigation = useNavigation();

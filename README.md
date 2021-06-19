@@ -9,6 +9,8 @@ npm install --global expo-cli yarn
 cd MSaaS-Client
 yarn
 yarn start
+# You can also optimize blobs after adding new assets
+npx expo-optimize
 ```
 
 Use `Expo Go` app on your phone or web browser for development
