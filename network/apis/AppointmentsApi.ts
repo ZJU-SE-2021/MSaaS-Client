@@ -15,21 +15,23 @@
 
 import * as runtime from '../runtime';
 import {
+    AppointmentDto,
+    AppointmentDtoFromJSON,
+    AppointmentDtoToJSON,
     AppointmentForm,
     AppointmentFormFromJSON,
     AppointmentFormToJSON,
-    MedicalRecordForm,
-    MedicalRecordFormFromJSON,
-    MedicalRecordFormToJSON,
+    DepartmentDto,
+    DepartmentDtoFromJSON,
+    DepartmentDtoToJSON,
 } from '../models';
 
-export interface AppointmentsIdMedicalRecordPostRequest {
-    id: number;
-    medicalRecordForm?: MedicalRecordForm;
+export interface AddAppointmentRequest {
+    appointmentForm?: AppointmentForm;
 }
 
-export interface AppointmentsPostRequest {
-    appointmentForm?: AppointmentForm;
+export interface GetAppointmentByIdRequest {
+    id: number;
 }
 
 /**
@@ -39,42 +41,16 @@ export class AppointmentsApi extends runtime.BaseAPI {
 
     /**
      */
-    async appointmentsIdMedicalRecordPostRaw(requestParameters: AppointmentsIdMedicalRecordPostRequest): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling appointmentsIdMedicalRecordPost.');
+    async addAppointmentRaw(requestParameters: AddAppointmentRequest): Promise<runtime.ApiResponse<AppointmentDto>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
         }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        const response = await this.request({
-            path: `/Appointments/{id}/MedicalRecord`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: MedicalRecordFormToJSON(requestParameters.medicalRecordForm),
-        });
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     */
-    async appointmentsIdMedicalRecordPost(requestParameters: AppointmentsIdMedicalRecordPostRequest): Promise<void> {
-        await this.appointmentsIdMedicalRecordPostRaw(requestParameters);
-    }
-
-    /**
-     */
-    async appointmentsPostRaw(requestParameters: AppointmentsPostRequest): Promise<runtime.ApiResponse<void>> {
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
             path: `/Appointments`,
@@ -84,13 +60,46 @@ export class AppointmentsApi extends runtime.BaseAPI {
             body: AppointmentFormToJSON(requestParameters.appointmentForm),
         });
 
-        return new runtime.VoidApiResponse(response);
+        return new runtime.JSONApiResponse(response, (jsonValue) => AppointmentDtoFromJSON(jsonValue));
     }
 
     /**
      */
-    async appointmentsPost(requestParameters: AppointmentsPostRequest): Promise<void> {
-        await this.appointmentsPostRaw(requestParameters);
+    async addAppointment(requestParameters: AddAppointmentRequest): Promise<AppointmentDto> {
+        const response = await this.addAppointmentRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     */
+    async getAppointmentByIdRaw(requestParameters: GetAppointmentByIdRequest): Promise<runtime.ApiResponse<DepartmentDto>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getAppointmentById.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
+        }
+
+        const response = await this.request({
+            path: `/Appointments/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DepartmentDtoFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async getAppointmentById(requestParameters: GetAppointmentByIdRequest): Promise<DepartmentDto> {
+        const response = await this.getAppointmentByIdRaw(requestParameters);
+        return await response.value();
     }
 
 }

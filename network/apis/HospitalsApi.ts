@@ -18,22 +18,25 @@ import {
     HospitalCreationForm,
     HospitalCreationFormFromJSON,
     HospitalCreationFormToJSON,
+    HospitalDto,
+    HospitalDtoFromJSON,
+    HospitalDtoToJSON,
 } from '../models';
 
-export interface HospitalsIdDeleteRequest {
-    id: number;
-}
-
-export interface HospitalsIdGetRequest {
-    id: number;
-}
-
-export interface HospitalsIdPutRequest {
-    id: number;
+export interface CreateHospitalRequest {
     hospitalCreationForm?: HospitalCreationForm;
 }
 
-export interface HospitalsPostRequest {
+export interface DeleteHospitalRequest {
+    id: number;
+}
+
+export interface GetHospitalRequest {
+    id: number;
+}
+
+export interface UpdateHospitalRequest {
+    id: number;
     hospitalCreationForm?: HospitalCreationForm;
 }
 
@@ -44,37 +47,49 @@ export class HospitalsApi extends runtime.BaseAPI {
 
     /**
      */
-    async hospitalsGetRaw(): Promise<runtime.ApiResponse<void>> {
+    async createHospitalRaw(requestParameters: CreateHospitalRequest): Promise<runtime.ApiResponse<HospitalDto>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
+        }
+
         const response = await this.request({
             path: `/Hospitals`,
-            method: 'GET',
+            method: 'POST',
             headers: headerParameters,
             query: queryParameters,
+            body: HospitalCreationFormToJSON(requestParameters.hospitalCreationForm),
         });
 
-        return new runtime.VoidApiResponse(response);
+        return new runtime.JSONApiResponse(response, (jsonValue) => HospitalDtoFromJSON(jsonValue));
     }
 
     /**
      */
-    async hospitalsGet(): Promise<void> {
-        await this.hospitalsGetRaw();
+    async createHospital(requestParameters: CreateHospitalRequest): Promise<HospitalDto> {
+        const response = await this.createHospitalRaw(requestParameters);
+        return await response.value();
     }
 
     /**
      */
-    async hospitalsIdDeleteRaw(requestParameters: HospitalsIdDeleteRequest): Promise<runtime.ApiResponse<void>> {
+    async deleteHospitalRaw(requestParameters: DeleteHospitalRequest): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling hospitalsIdDelete.');
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling deleteHospital.');
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
+        }
 
         const response = await this.request({
             path: `/Hospitals/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
@@ -88,20 +103,24 @@ export class HospitalsApi extends runtime.BaseAPI {
 
     /**
      */
-    async hospitalsIdDelete(requestParameters: HospitalsIdDeleteRequest): Promise<void> {
-        await this.hospitalsIdDeleteRaw(requestParameters);
+    async deleteHospital(requestParameters: DeleteHospitalRequest): Promise<void> {
+        await this.deleteHospitalRaw(requestParameters);
     }
 
     /**
      */
-    async hospitalsIdGetRaw(requestParameters: HospitalsIdGetRequest): Promise<runtime.ApiResponse<void>> {
+    async getHospitalRaw(requestParameters: GetHospitalRequest): Promise<runtime.ApiResponse<HospitalDto>> {
         if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling hospitalsIdGet.');
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getHospital.');
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
+        }
 
         const response = await this.request({
             path: `/Hospitals/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
@@ -110,20 +129,49 @@ export class HospitalsApi extends runtime.BaseAPI {
             query: queryParameters,
         });
 
-        return new runtime.VoidApiResponse(response);
+        return new runtime.JSONApiResponse(response, (jsonValue) => HospitalDtoFromJSON(jsonValue));
     }
 
     /**
      */
-    async hospitalsIdGet(requestParameters: HospitalsIdGetRequest): Promise<void> {
-        await this.hospitalsIdGetRaw(requestParameters);
+    async getHospital(requestParameters: GetHospitalRequest): Promise<HospitalDto> {
+        const response = await this.getHospitalRaw(requestParameters);
+        return await response.value();
     }
 
     /**
      */
-    async hospitalsIdPutRaw(requestParameters: HospitalsIdPutRequest): Promise<runtime.ApiResponse<void>> {
+    async getHospitalsRaw(): Promise<runtime.ApiResponse<Array<HospitalDto>>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
+        }
+
+        const response = await this.request({
+            path: `/Hospitals`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(HospitalDtoFromJSON));
+    }
+
+    /**
+     */
+    async getHospitals(): Promise<Array<HospitalDto>> {
+        const response = await this.getHospitalsRaw();
+        return await response.value();
+    }
+
+    /**
+     */
+    async updateHospitalRaw(requestParameters: UpdateHospitalRequest): Promise<runtime.ApiResponse<HospitalDto>> {
         if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling hospitalsIdPut.');
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling updateHospital.');
         }
 
         const queryParameters: any = {};
@@ -131,6 +179,10 @@ export class HospitalsApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
+        }
 
         const response = await this.request({
             path: `/Hospitals/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
@@ -140,39 +192,14 @@ export class HospitalsApi extends runtime.BaseAPI {
             body: HospitalCreationFormToJSON(requestParameters.hospitalCreationForm),
         });
 
-        return new runtime.VoidApiResponse(response);
+        return new runtime.JSONApiResponse(response, (jsonValue) => HospitalDtoFromJSON(jsonValue));
     }
 
     /**
      */
-    async hospitalsIdPut(requestParameters: HospitalsIdPutRequest): Promise<void> {
-        await this.hospitalsIdPutRaw(requestParameters);
-    }
-
-    /**
-     */
-    async hospitalsPostRaw(requestParameters: HospitalsPostRequest): Promise<runtime.ApiResponse<void>> {
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        const response = await this.request({
-            path: `/Hospitals`,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: HospitalCreationFormToJSON(requestParameters.hospitalCreationForm),
-        });
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     */
-    async hospitalsPost(requestParameters: HospitalsPostRequest): Promise<void> {
-        await this.hospitalsPostRaw(requestParameters);
+    async updateHospital(requestParameters: UpdateHospitalRequest): Promise<HospitalDto> {
+        const response = await this.updateHospitalRaw(requestParameters);
+        return await response.value();
     }
 
 }

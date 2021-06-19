@@ -18,30 +18,25 @@ import {
     DepartmentCreationForm,
     DepartmentCreationFormFromJSON,
     DepartmentCreationFormToJSON,
-    PhysicianRegisterForm,
-    PhysicianRegisterFormFromJSON,
-    PhysicianRegisterFormToJSON,
+    DepartmentDto,
+    DepartmentDtoFromJSON,
+    DepartmentDtoToJSON,
 } from '../models';
 
-export interface DepartmentsIdDeleteRequest {
-    id: number;
-}
-
-export interface DepartmentsIdGetRequest {
-    id: number;
-}
-
-export interface DepartmentsIdPhysiciansPostRequest {
-    id: number;
-    physicianRegisterForm?: PhysicianRegisterForm;
-}
-
-export interface DepartmentsIdPutRequest {
-    id: number;
+export interface CreateDepartmentRequest {
     departmentCreationForm?: DepartmentCreationForm;
 }
 
-export interface DepartmentsPostRequest {
+export interface DeleteDepartmentRequest {
+    id: number;
+}
+
+export interface GetDepartmentRequest {
+    id: number;
+}
+
+export interface UpdateDepartmentRequest {
+    id: number;
     departmentCreationForm?: DepartmentCreationForm;
 }
 
@@ -52,37 +47,49 @@ export class DepartmentsApi extends runtime.BaseAPI {
 
     /**
      */
-    async departmentsGetRaw(): Promise<runtime.ApiResponse<void>> {
+    async createDepartmentRaw(requestParameters: CreateDepartmentRequest): Promise<runtime.ApiResponse<DepartmentDto>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
+        }
+
         const response = await this.request({
             path: `/Departments`,
-            method: 'GET',
+            method: 'POST',
             headers: headerParameters,
             query: queryParameters,
+            body: DepartmentCreationFormToJSON(requestParameters.departmentCreationForm),
         });
 
-        return new runtime.VoidApiResponse(response);
+        return new runtime.JSONApiResponse(response, (jsonValue) => DepartmentDtoFromJSON(jsonValue));
     }
 
     /**
      */
-    async departmentsGet(): Promise<void> {
-        await this.departmentsGetRaw();
+    async createDepartment(requestParameters: CreateDepartmentRequest): Promise<DepartmentDto> {
+        const response = await this.createDepartmentRaw(requestParameters);
+        return await response.value();
     }
 
     /**
      */
-    async departmentsIdDeleteRaw(requestParameters: DepartmentsIdDeleteRequest): Promise<runtime.ApiResponse<void>> {
+    async deleteDepartmentRaw(requestParameters: DeleteDepartmentRequest): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling departmentsIdDelete.');
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling deleteDepartment.');
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
+        }
 
         const response = await this.request({
             path: `/Departments/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
@@ -96,20 +103,24 @@ export class DepartmentsApi extends runtime.BaseAPI {
 
     /**
      */
-    async departmentsIdDelete(requestParameters: DepartmentsIdDeleteRequest): Promise<void> {
-        await this.departmentsIdDeleteRaw(requestParameters);
+    async deleteDepartment(requestParameters: DeleteDepartmentRequest): Promise<void> {
+        await this.deleteDepartmentRaw(requestParameters);
     }
 
     /**
      */
-    async departmentsIdGetRaw(requestParameters: DepartmentsIdGetRequest): Promise<runtime.ApiResponse<void>> {
+    async getDepartmentRaw(requestParameters: GetDepartmentRequest): Promise<runtime.ApiResponse<DepartmentDto>> {
         if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling departmentsIdGet.');
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getDepartment.');
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
+        }
 
         const response = await this.request({
             path: `/Departments/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
@@ -118,50 +129,49 @@ export class DepartmentsApi extends runtime.BaseAPI {
             query: queryParameters,
         });
 
-        return new runtime.VoidApiResponse(response);
+        return new runtime.JSONApiResponse(response, (jsonValue) => DepartmentDtoFromJSON(jsonValue));
     }
 
     /**
      */
-    async departmentsIdGet(requestParameters: DepartmentsIdGetRequest): Promise<void> {
-        await this.departmentsIdGetRaw(requestParameters);
+    async getDepartment(requestParameters: GetDepartmentRequest): Promise<DepartmentDto> {
+        const response = await this.getDepartmentRaw(requestParameters);
+        return await response.value();
     }
 
     /**
      */
-    async departmentsIdPhysiciansPostRaw(requestParameters: DepartmentsIdPhysiciansPostRequest): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling departmentsIdPhysiciansPost.');
-        }
-
+    async getDepartmentsRaw(): Promise<runtime.ApiResponse<Array<DepartmentDto>>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        headerParameters['Content-Type'] = 'application/json';
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
+        }
 
         const response = await this.request({
-            path: `/Departments/{id}/Physicians`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'POST',
+            path: `/Departments`,
+            method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-            body: PhysicianRegisterFormToJSON(requestParameters.physicianRegisterForm),
         });
 
-        return new runtime.VoidApiResponse(response);
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(DepartmentDtoFromJSON));
     }
 
     /**
      */
-    async departmentsIdPhysiciansPost(requestParameters: DepartmentsIdPhysiciansPostRequest): Promise<void> {
-        await this.departmentsIdPhysiciansPostRaw(requestParameters);
+    async getDepartments(): Promise<Array<DepartmentDto>> {
+        const response = await this.getDepartmentsRaw();
+        return await response.value();
     }
 
     /**
      */
-    async departmentsIdPutRaw(requestParameters: DepartmentsIdPutRequest): Promise<runtime.ApiResponse<void>> {
+    async updateDepartmentRaw(requestParameters: UpdateDepartmentRequest): Promise<runtime.ApiResponse<DepartmentDto>> {
         if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling departmentsIdPut.');
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling updateDepartment.');
         }
 
         const queryParameters: any = {};
@@ -169,6 +179,10 @@ export class DepartmentsApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
+        }
 
         const response = await this.request({
             path: `/Departments/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
@@ -178,39 +192,14 @@ export class DepartmentsApi extends runtime.BaseAPI {
             body: DepartmentCreationFormToJSON(requestParameters.departmentCreationForm),
         });
 
-        return new runtime.VoidApiResponse(response);
+        return new runtime.JSONApiResponse(response, (jsonValue) => DepartmentDtoFromJSON(jsonValue));
     }
 
     /**
      */
-    async departmentsIdPut(requestParameters: DepartmentsIdPutRequest): Promise<void> {
-        await this.departmentsIdPutRaw(requestParameters);
-    }
-
-    /**
-     */
-    async departmentsPostRaw(requestParameters: DepartmentsPostRequest): Promise<runtime.ApiResponse<void>> {
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        const response = await this.request({
-            path: `/Departments`,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: DepartmentCreationFormToJSON(requestParameters.departmentCreationForm),
-        });
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     */
-    async departmentsPost(requestParameters: DepartmentsPostRequest): Promise<void> {
-        await this.departmentsPostRaw(requestParameters);
+    async updateDepartment(requestParameters: UpdateDepartmentRequest): Promise<DepartmentDto> {
+        const response = await this.updateDepartmentRaw(requestParameters);
+        return await response.value();
     }
 
 }

@@ -16,28 +16,28 @@ import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface PhysicianRegisterForm
+ * @interface PhysicianDto
  */
-export interface PhysicianRegisterForm {
+export interface PhysicianDto {
     /**
      * 
      * @type {number}
-     * @memberof PhysicianRegisterForm
+     * @memberof PhysicianDto
      */
     userId?: number;
     /**
      * 
      * @type {number}
-     * @memberof PhysicianRegisterForm
+     * @memberof PhysicianDto
      */
     departmentId?: number;
 }
 
-export function PhysicianRegisterFormFromJSON(json: any): PhysicianRegisterForm {
-    return PhysicianRegisterFormFromJSONTyped(json, false);
+export function PhysicianDtoFromJSON(json: any): PhysicianDto {
+    return PhysicianDtoFromJSONTyped(json, false);
 }
 
-export function PhysicianRegisterFormFromJSONTyped(json: any, ignoreDiscriminator: boolean): PhysicianRegisterForm {
+export function PhysicianDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): PhysicianDto {
     if ((json === undefined) || (json === null)) {
         return json;
     }
@@ -48,7 +48,7 @@ export function PhysicianRegisterFormFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function PhysicianRegisterFormToJSON(value?: PhysicianRegisterForm | null): any {
+export function PhysicianDtoToJSON(value?: PhysicianDto | null): any {
     if (value === undefined) {
         return undefined;
     }

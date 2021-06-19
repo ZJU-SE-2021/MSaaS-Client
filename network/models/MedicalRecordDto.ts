@@ -16,45 +16,52 @@ import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface MedicalRecordForm
+ * @interface MedicalRecordDto
  */
-export interface MedicalRecordForm {
+export interface MedicalRecordDto {
     /**
      * 
      * @type {number}
-     * @memberof MedicalRecordForm
+     * @memberof MedicalRecordDto
+     */
+    id?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof MedicalRecordDto
      */
     appointmentId?: number;
     /**
      * 
      * @type {string}
-     * @memberof MedicalRecordForm
+     * @memberof MedicalRecordDto
      */
     symptom?: string | null;
     /**
      * 
      * @type {string}
-     * @memberof MedicalRecordForm
+     * @memberof MedicalRecordDto
      */
     pastMedicalHistory?: string | null;
     /**
      * 
      * @type {string}
-     * @memberof MedicalRecordForm
+     * @memberof MedicalRecordDto
      */
     diagnosis?: string | null;
 }
 
-export function MedicalRecordFormFromJSON(json: any): MedicalRecordForm {
-    return MedicalRecordFormFromJSONTyped(json, false);
+export function MedicalRecordDtoFromJSON(json: any): MedicalRecordDto {
+    return MedicalRecordDtoFromJSONTyped(json, false);
 }
 
-export function MedicalRecordFormFromJSONTyped(json: any, ignoreDiscriminator: boolean): MedicalRecordForm {
+export function MedicalRecordDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): MedicalRecordDto {
     if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
+        'id': !exists(json, 'id') ? undefined : json['id'],
         'appointmentId': !exists(json, 'appointmentId') ? undefined : json['appointmentId'],
         'symptom': !exists(json, 'symptom') ? undefined : json['symptom'],
         'pastMedicalHistory': !exists(json, 'pastMedicalHistory') ? undefined : json['pastMedicalHistory'],
@@ -62,7 +69,7 @@ export function MedicalRecordFormFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function MedicalRecordFormToJSON(value?: MedicalRecordForm | null): any {
+export function MedicalRecordDtoToJSON(value?: MedicalRecordDto | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -71,6 +78,7 @@ export function MedicalRecordFormToJSON(value?: MedicalRecordForm | null): any {
     }
     return {
         
+        'id': value.id,
         'appointmentId': value.appointmentId,
         'symptom': value.symptom,
         'pastMedicalHistory': value.pastMedicalHistory,
