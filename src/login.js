@@ -51,7 +51,7 @@ export default function Login() {
         setLoading(true)
         const loginForm = {username, password}
         try {
-            const res = await userApi.usersLoginPost({loginForm})
+            const res = await userApi.login({loginForm})
             dispatch({type: 'SET_LOGIN', payload: res})
             storeContext({
                 loginState: true,
