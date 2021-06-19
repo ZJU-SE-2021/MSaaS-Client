@@ -29,7 +29,16 @@ const newAppointment = () => {
     }
 
     const onSubmit = () => {
-        // navigation
+        navigation.reset({
+            index: 1,
+            routes: [
+                { name: 'Home' },
+                {
+                    name: 'Detail',
+                    params: { user: 'jane' },
+                },
+            ],
+        })
     }
 
     return <View style={style.container}>
