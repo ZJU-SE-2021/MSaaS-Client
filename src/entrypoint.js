@@ -4,6 +4,8 @@ import {createStackNavigator} from "@react-navigation/stack";
 import Main from "./main";
 import DepartmentList from "./appointments/department";
 import {ChatterBot} from "./home/chatterBot";
+import DoctorSelection from "./appointments/doctorSelection";
+import newAppointment from "./appointments/newAppointment";
 
 const Stack = createStackNavigator();
 
@@ -14,6 +16,8 @@ export default function Entrypoint() {
                 <Stack.Screen name='Home' component={Main}/>
                 <Stack.Screen name='Detail' component={DepartmentList}/>
                 <Stack.Screen name='ChatterBot' component={ChatterBot}/>
+                <Stack.Screen name='Doctor' component={DoctorSelection}/>
+                <Stack.Screen name='Appointment' component={newAppointment}/>
             </Stack.Navigator>
         </NavigationContainer>
     )

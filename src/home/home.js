@@ -1,7 +1,9 @@
 import {Appbar, Card} from 'react-native-paper';
 import {StyleSheet, View, Text} from "react-native";
-import React from "react";
+import React, {useContext, useEffect} from "react";
 import {useNavigation} from "@react-navigation/native";
+import {Configuration, UsersApi} from "../../network";
+import {Context} from "../../store/reducer";
 
 const style = StyleSheet.create({
     greeting: {
@@ -44,7 +46,16 @@ const prescription = {
 }
 
 export default function Home() {
-    const navigation = useNavigation();
+    const navigation = useNavigation()
+    const [state, dispatch] = useContext(Context)
+
+    useEffect( () => {
+        console.log(state.userProfile.username)
+        const userApi = new UsersApi(new Configuration({accessToken: state.jwtToken}))
+        userApi.getCurrentUser().then(res => {
+            console.log(res)
+        })
+    }, [])
 
     return (
         <View>
@@ -52,7 +63,7 @@ export default function Home() {
                 <Appbar.Content title="MSaaS" subtitle="智能医疗系统"/>
             </Appbar.Header>
             <View>
-                <Text style={ style.greeting }>早上好，小明</Text>
+                <Text style={ style.greeting }>早上好，{state.userProfile.username}</Text>
             </View>
             <Card style={ style.cards } onPress={() => navigation.navigate('ChatterBot')}>
                 <Card.Title title="智能诊疗" subtitle="快速为您推荐合适的诊疗方案。"/>

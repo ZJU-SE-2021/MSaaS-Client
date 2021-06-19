@@ -68,9 +68,16 @@ const DepartmentList = () => {
                     {mockDepartmentsData.map(({name, departments}) => {
                         return <List.Accordion
                             title={name}
+                            key={name}
                             left={props => <List.Icon {...props} icon="hospital-building"/>}>
                             {departments.map((department) => {
-                                return <List.Item title={department}/>
+                                return <List.Item key={department} title={department} onPress={() => {
+                                    navigation.navigate('Doctor', {
+                                        hospital: route.params.hospital.name,
+                                        department: name,
+                                        specificDepartment: department
+                                    })
+                                }}/>
                             })}
                         </List.Accordion>
                     })}
