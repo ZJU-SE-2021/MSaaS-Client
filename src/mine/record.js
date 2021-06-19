@@ -1,6 +1,7 @@
 import {Searchbar, List, FAB, Card, Button} from 'react-native-paper';
 import React, {useState} from "react";
 import {View, StyleSheet, ScrollView} from 'react-native';
+import {useNavigation} from "@react-navigation/native";
 
 class Record {
     constructor(hospital, department, date, status) {
@@ -47,6 +48,8 @@ const style = StyleSheet.create({
 
 
 export default function RecordSelection() {
+    const navigation = useNavigation()
+
     const [searchQuery, setSearchQuery] = useState('');
     const onChangeSearch = query => setSearchQuery(query);
 
@@ -78,6 +81,7 @@ export default function RecordSelection() {
                             title={record.hospital + ' ' + record.department}
                             left={props => <List.Icon {...props} icon={recordIconMap[record.status]}/>}
                             description={record.date}
+                            onPress={() => navigation.navigate('Detail')}
                         />
                     })}
             </ScrollView>

@@ -3,7 +3,6 @@ import React, {useContext} from "react";
 import {storeContext} from "../../store/localStorage";
 import {Context} from "../../store/reducer";
 import {StyleSheet, View} from "react-native";
-import RecordSelection from "./record"
 import {useNavigation} from "@react-navigation/native";
 
 const style = StyleSheet.create({
@@ -12,17 +11,26 @@ const style = StyleSheet.create({
     },
 });
 
-
-export default function Mine() {
+export default function UserProfile() {
     const [state, dispatch] = useContext(Context);
     const navigation = useNavigation()
+
+    function logout() {
+        dispatch({type: 'SET_LOGOUT'})
+        storeContext({loginState: false}).then()
+    }
+
     return (
         <View style={style.container}>
             <Appbar.Header >
-                <Appbar.Content title="我的" subtitle="MSaaS"/>
-                <Appbar.Action icon="account-settings" onPress={() => {navigation.navigate('UserProfile')}} />
+                <Appbar.BackAction onPress={() => {
+                    navigation.goBack()
+                }}/>
+                <Appbar.Content title="个人信息" subtitle={state.username}/>
             </Appbar.Header>
-            <RecordSelection/>
+            <Button icon="logout" mode="contained" onPress={logout}>
+                退出登录
+            </Button>
         </View>
     )
 }

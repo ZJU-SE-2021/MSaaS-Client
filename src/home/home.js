@@ -1,14 +1,14 @@
-import {Appbar, Card} from 'react-native-paper';
+import {Appbar, Card, Paragraph, Title} from 'react-native-paper';
 import {StyleSheet, View, Text} from "react-native";
 import React, {useContext, useEffect} from "react";
 import {useNavigation} from "@react-navigation/native";
 import {Configuration, UsersApi} from "../../network";
 import {Context} from "../../store/reducer";
+import ScreenWrapper from "../components/ScreenWrapper";
 
 const style = StyleSheet.create({
     greeting: {
-        padding : 10,
-        margin : 10,
+        paddingTop: 10,
         fontSize : 20
     },
     cards: {
@@ -45,6 +45,8 @@ const prescription = {
     comment : "避免过度劳累，避免辛辣食品，推荐户外运动。"
 }
 
+const pic = require('../../assets/undraw_doctors_hwty.png')
+
 export default function Home() {
     const navigation = useNavigation()
     const [state, dispatch] = useContext(Context)
@@ -58,43 +60,49 @@ export default function Home() {
     }, [])
 
     return (
-        <View>
+        <View style={{flex: 1}}>
             <Appbar.Header>
                 <Appbar.Content title="MSaaS" subtitle="智能医疗系统"/>
             </Appbar.Header>
-            <View>
-                <Text style={ style.greeting }>早上好，{state.userProfile.username}</Text>
-            </View>
-            <Card style={ style.cards } onPress={() => navigation.navigate('ChatterBot')}>
-                <Card.Title title="智能诊疗" subtitle="快速为您推荐合适的诊疗方案。"/>
-            </Card>
-            <Card style={ style.cards }>
-                <Card.Title title={ parseInt((appointment.time - (new Date())) / (24*3600*1000)) + '天后的诊疗预约' }/>
-                <Card.Content>
-                    <Text>{ appointment.doctor }</Text>
-                    <Text>{ appointment.time.toLocaleString('zh-CN', { hour12 : false }) }</Text>
-                    <Text>{ appointment.hospital + ' | ' + appointment.department }</Text>
-                </Card.Content>
-            </Card>
-            <Card style={ style.cards }>
-                <Card.Title title={ prescription.doctor + '开具的处方' }/>
-                <Card.Content>
-                    { prescription.rxes.map((rx, index) => {
-                        return (
-                            <View key={ index } style={ style.rxList }>
-                                <Text>{ rx.rxName }</Text>
-                                <Text style={ style.rxUsage }>{ ' 1日' + rx.timesPerDay + '次，1次' + rx.volumePerTime }</Text>
-                            </View>
-                        )
-                    }) }
-                </Card.Content>
-            </Card>
-            <Card style={ style.cards }>
-                <Card.Title title={ prescription.doctor + '的医嘱' }/>
-                <Card.Content>
-                    <Text>{ prescription.comment }</Text>
-                </Card.Content>
-            </Card>
+            <ScreenWrapper>
+                <Card style={ style.cards }>
+                    <Card.Cover source={pic}/>
+                    <Card.Content>
+                        <Title style={ style.greeting }>你好，{state.userProfile.username}!</Title>
+                        <Paragraph>欢迎使用 MSaaS 智能互联网医疗系统！</Paragraph>
+                    </Card.Content>
+                </Card>
+                <Card style={ style.cards } onPress={() => navigation.navigate('ChatterBot')}>
+                    <Card.Title title="智能诊疗" subtitle="快速为您推荐合适的诊疗方案。"/>
+                </Card>
+                <Card style={ style.cards } onPress={() => navigation.navigate('Detail')}>
+                    <Card.Title title={ parseInt((appointment.time - (new Date())) / (24*3600*1000)) + '天后的诊疗预约' }/>
+                    <Card.Content>
+                        <Text>{ appointment.doctor }</Text>
+                        <Text>{ appointment.time.toLocaleString('zh-CN', { hour12 : false }) }</Text>
+                        <Text>{ appointment.hospital + ' | ' + appointment.department }</Text>
+                    </Card.Content>
+                </Card>
+                <Card style={ style.cards }>
+                    <Card.Title title={ prescription.doctor + '开具的处方' }/>
+                    <Card.Content>
+                        { prescription.rxes.map((rx, index) => {
+                            return (
+                                <View key={ index } style={ style.rxList }>
+                                    <Text>{ rx.rxName }</Text>
+                                    <Text style={ style.rxUsage }>{ ' 1日' + rx.timesPerDay + '次，1次' + rx.volumePerTime }</Text>
+                                </View>
+                            )
+                        }) }
+                    </Card.Content>
+                </Card>
+                <Card style={ style.cards }>
+                    <Card.Title title={ prescription.doctor + '的医嘱' }/>
+                    <Card.Content>
+                        <Text>{ prescription.comment }</Text>
+                    </Card.Content>
+                </Card>
+            </ScreenWrapper>
         </View>
     )
 }

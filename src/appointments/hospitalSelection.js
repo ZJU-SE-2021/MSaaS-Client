@@ -63,10 +63,10 @@ export default function HospitalSelection() {
                         .map((hospital, index) => {
                             return cardOrList ? (
                                 <List.Item key={index} title={hospital.name} description={hospital.distance + ' km'}
-                                           onPress={() => navigation.navigate('Detail', {hospital})}/>
+                                           onPress={() => navigation.navigate('Hospital', {hospital})}/>
                             ) : (
                                 <Card style={styles.card} key={index}
-                                      onPress={() => navigation.navigate('Detail', {hospital})}>
+                                      onPress={() => navigation.navigate('Hospital', {hospital})}>
                                     <Card.Title title={hospital.name} subtitle={hospital.distance + ' km'}/>
                                     <Card.Cover source={picPlaceHolder}/>
                                 </Card>

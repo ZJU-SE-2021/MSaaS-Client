@@ -26,7 +26,11 @@ const newAppointment = () => {
     const onChange = (event, selectedDate) => {
         const currentDate = selectedDate || date;
         setDate(currentDate);
-    };
+    }
+
+    const onSubmit = () => {
+        // navigation
+    }
 
     return <View style={style.container}>
         <Appbar.Header>
@@ -79,7 +83,7 @@ const newAppointment = () => {
                     <Paragraph>您正在预约{`${route.params.hospital}${route.params.department}${route.params.specificDepartment}${route.params.doctor}医生${date.toLocaleDateString('zh-CN')}的诊疗，症状是${symptom}，请确认无误后继续`}</Paragraph>
                 </Dialog.Content>
                 <Dialog.Actions>
-                    <Button onPress={() => setShowCheck(false)}>确认</Button>
+                    <Button onPress={onSubmit}>确认</Button>
                     <Button onPress={() => setShowCheck(false)}>取消</Button>
                 </Dialog.Actions>
             </Dialog>
