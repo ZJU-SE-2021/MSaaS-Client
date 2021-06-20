@@ -40,6 +40,12 @@ export interface UpdateUserFormAdmin {
     password?: string | null;
     /**
      * 
+     * @type {string}
+     * @memberof UpdateUserFormAdmin
+     */
+    name?: string | null;
+    /**
+     * 
      * @type {Gender}
      * @memberof UpdateUserFormAdmin
      */
@@ -82,6 +88,7 @@ export function UpdateUserFormAdminFromJSONTyped(json: any, ignoreDiscriminator:
         
         'username': !exists(json, 'username') ? undefined : json['username'],
         'password': !exists(json, 'password') ? undefined : json['password'],
+        'name': !exists(json, 'name') ? undefined : json['name'],
         'gender': !exists(json, 'gender') ? undefined : GenderFromJSON(json['gender']),
         'birthday': !exists(json, 'birthday') ? undefined : (json['birthday'] === null ? null : new Date(json['birthday'])),
         'phone': !exists(json, 'phone') ? undefined : json['phone'],
@@ -101,6 +108,7 @@ export function UpdateUserFormAdminToJSON(value?: UpdateUserFormAdmin | null): a
         
         'username': value.username,
         'password': value.password,
+        'name': value.name,
         'gender': GenderToJSON(value.gender),
         'birthday': value.birthday === undefined ? undefined : (value.birthday === null ? null : value.birthday.toISOString().substr(0,10)),
         'phone': value.phone,

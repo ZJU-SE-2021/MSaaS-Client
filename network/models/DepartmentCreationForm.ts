@@ -31,6 +31,12 @@ export interface DepartmentCreationForm {
      * @memberof DepartmentCreationForm
      */
     name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DepartmentCreationForm
+     */
+    section?: string | null;
 }
 
 export function DepartmentCreationFormFromJSON(json: any): DepartmentCreationForm {
@@ -45,6 +51,7 @@ export function DepartmentCreationFormFromJSONTyped(json: any, ignoreDiscriminat
         
         'hospitalId': !exists(json, 'hospitalId') ? undefined : json['hospitalId'],
         'name': json['name'],
+        'section': !exists(json, 'section') ? undefined : json['section'],
     };
 }
 
@@ -59,6 +66,7 @@ export function DepartmentCreationFormToJSON(value?: DepartmentCreationForm | nu
         
         'hospitalId': value.hospitalId,
         'name': value.name,
+        'section': value.section,
     };
 }
 

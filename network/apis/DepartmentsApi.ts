@@ -35,6 +35,10 @@ export interface GetDepartmentRequest {
     id: number;
 }
 
+export interface GetDepartmentsRequest {
+    hospitalId?: number;
+}
+
 export interface UpdateDepartmentRequest {
     id: number;
     departmentCreationForm?: DepartmentCreationForm;
@@ -53,10 +57,6 @@ export class DepartmentsApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
-        }
 
         const response = await this.request({
             path: `/Departments`,
@@ -87,10 +87,6 @@ export class DepartmentsApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
-        }
-
         const response = await this.request({
             path: `/Departments/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: 'DELETE',
@@ -118,10 +114,6 @@ export class DepartmentsApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
-        }
-
         const response = await this.request({
             path: `/Departments/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: 'GET',
@@ -141,14 +133,14 @@ export class DepartmentsApi extends runtime.BaseAPI {
 
     /**
      */
-    async getDepartmentsRaw(): Promise<runtime.ApiResponse<Array<DepartmentDto>>> {
+    async getDepartmentsRaw(requestParameters: GetDepartmentsRequest): Promise<runtime.ApiResponse<Array<DepartmentDto>>> {
         const queryParameters: any = {};
 
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
+        if (requestParameters.hospitalId !== undefined) {
+            queryParameters['hospitalId'] = requestParameters.hospitalId;
         }
+
+        const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
             path: `/Departments`,
@@ -162,8 +154,8 @@ export class DepartmentsApi extends runtime.BaseAPI {
 
     /**
      */
-    async getDepartments(): Promise<Array<DepartmentDto>> {
-        const response = await this.getDepartmentsRaw();
+    async getDepartments(requestParameters: GetDepartmentsRequest): Promise<Array<DepartmentDto>> {
+        const response = await this.getDepartmentsRaw(requestParameters);
         return await response.value();
     }
 
@@ -179,10 +171,6 @@ export class DepartmentsApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
-        }
 
         const response = await this.request({
             path: `/Departments/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),

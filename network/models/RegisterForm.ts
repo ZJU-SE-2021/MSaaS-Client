@@ -40,6 +40,12 @@ export interface RegisterForm {
     password: string;
     /**
      * 
+     * @type {string}
+     * @memberof RegisterForm
+     */
+    name?: string | null;
+    /**
+     * 
      * @type {Gender}
      * @memberof RegisterForm
      */
@@ -76,6 +82,7 @@ export function RegisterFormFromJSONTyped(json: any, ignoreDiscriminator: boolea
         
         'username': json['username'],
         'password': json['password'],
+        'name': !exists(json, 'name') ? undefined : json['name'],
         'gender': !exists(json, 'gender') ? undefined : GenderFromJSON(json['gender']),
         'birthday': !exists(json, 'birthday') ? undefined : (json['birthday'] === null ? null : new Date(json['birthday'])),
         'phone': !exists(json, 'phone') ? undefined : json['phone'],
@@ -94,6 +101,7 @@ export function RegisterFormToJSON(value?: RegisterForm | null): any {
         
         'username': value.username,
         'password': value.password,
+        'name': value.name,
         'gender': GenderToJSON(value.gender),
         'birthday': value.birthday === undefined ? undefined : (value.birthday === null ? null : value.birthday.toISOString().substr(0,10)),
         'phone': value.phone,

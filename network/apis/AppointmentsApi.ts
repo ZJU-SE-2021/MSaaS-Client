@@ -21,9 +21,6 @@ import {
     AppointmentForm,
     AppointmentFormFromJSON,
     AppointmentFormToJSON,
-    DepartmentDto,
-    DepartmentDtoFromJSON,
-    DepartmentDtoToJSON,
 } from '../models';
 
 export interface AddAppointmentRequest {
@@ -48,10 +45,6 @@ export class AppointmentsApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
-        }
-
         const response = await this.request({
             path: `/Appointments`,
             method: 'POST',
@@ -72,7 +65,7 @@ export class AppointmentsApi extends runtime.BaseAPI {
 
     /**
      */
-    async getAppointmentByIdRaw(requestParameters: GetAppointmentByIdRequest): Promise<runtime.ApiResponse<DepartmentDto>> {
+    async getAppointmentByIdRaw(requestParameters: GetAppointmentByIdRequest): Promise<runtime.ApiResponse<AppointmentDto>> {
         if (requestParameters.id === null || requestParameters.id === undefined) {
             throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getAppointmentById.');
         }
@@ -81,10 +74,6 @@ export class AppointmentsApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
-        }
-
         const response = await this.request({
             path: `/Appointments/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: 'GET',
@@ -92,12 +81,12 @@ export class AppointmentsApi extends runtime.BaseAPI {
             query: queryParameters,
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DepartmentDtoFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => AppointmentDtoFromJSON(jsonValue));
     }
 
     /**
      */
-    async getAppointmentById(requestParameters: GetAppointmentByIdRequest): Promise<DepartmentDto> {
+    async getAppointmentById(requestParameters: GetAppointmentByIdRequest): Promise<AppointmentDto> {
         const response = await this.getAppointmentByIdRaw(requestParameters);
         return await response.value();
     }

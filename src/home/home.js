@@ -52,8 +52,8 @@ export default function Home() {
     const [state, dispatch] = useContext(Context)
 
     useEffect( () => {
-        console.log(state.userProfile.username)
-        const userApi = new UsersApi(new Configuration({accessToken: state.jwtToken}))
+        const conf = new Configuration({apiKey: state.jwtToken})
+        const userApi = new UsersApi(conf)
         userApi.getCurrentUser().then(res => {
             console.log(res)
         })
@@ -68,7 +68,7 @@ export default function Home() {
                 <Card style={ style.cards }>
                     <Card.Cover source={pic}/>
                     <Card.Content>
-                        <Title style={ style.greeting }>你好，{state.userProfile.username}!</Title>
+                        <Title style={ style.greeting }>你好，{state.userProfile.name}!</Title>
                         <Paragraph>欢迎使用 MSaaS 智能互联网医疗系统！</Paragraph>
                     </Card.Content>
                 </Card>

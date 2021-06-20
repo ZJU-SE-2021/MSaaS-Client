@@ -33,6 +33,12 @@ export interface DepartmentDto {
     name?: string | null;
     /**
      * 
+     * @type {string}
+     * @memberof DepartmentDto
+     */
+    section?: string | null;
+    /**
+     * 
      * @type {number}
      * @memberof DepartmentDto
      */
@@ -51,6 +57,7 @@ export function DepartmentDtoFromJSONTyped(json: any, ignoreDiscriminator: boole
         
         'id': !exists(json, 'id') ? undefined : json['id'],
         'name': !exists(json, 'name') ? undefined : json['name'],
+        'section': !exists(json, 'section') ? undefined : json['section'],
         'hospitalId': !exists(json, 'hospitalId') ? undefined : json['hospitalId'],
     };
 }
@@ -66,6 +73,7 @@ export function DepartmentDtoToJSON(value?: DepartmentDto | null): any {
         
         'id': value.id,
         'name': value.name,
+        'section': value.section,
         'hospitalId': value.hospitalId,
     };
 }

@@ -13,6 +13,13 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import {
+    DepartmentDto,
+    DepartmentDtoFromJSON,
+    DepartmentDtoFromJSONTyped,
+    DepartmentDtoToJSON,
+} from './';
+
 /**
  * 
  * @export
@@ -24,13 +31,19 @@ export interface PhysicianDto {
      * @type {number}
      * @memberof PhysicianDto
      */
-    userId?: number;
+    id?: number;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof PhysicianDto
      */
-    departmentId?: number;
+    name?: string | null;
+    /**
+     * 
+     * @type {DepartmentDto}
+     * @memberof PhysicianDto
+     */
+    department?: DepartmentDto;
 }
 
 export function PhysicianDtoFromJSON(json: any): PhysicianDto {
@@ -43,8 +56,9 @@ export function PhysicianDtoFromJSONTyped(json: any, ignoreDiscriminator: boolea
     }
     return {
         
-        'userId': !exists(json, 'userId') ? undefined : json['userId'],
-        'departmentId': !exists(json, 'departmentId') ? undefined : json['departmentId'],
+        'id': !exists(json, 'id') ? undefined : json['id'],
+        'name': !exists(json, 'name') ? undefined : json['name'],
+        'department': !exists(json, 'department') ? undefined : DepartmentDtoFromJSON(json['department']),
     };
 }
 
@@ -57,8 +71,9 @@ export function PhysicianDtoToJSON(value?: PhysicianDto | null): any {
     }
     return {
         
-        'userId': value.userId,
-        'departmentId': value.departmentId,
+        'id': value.id,
+        'name': value.name,
+        'department': DepartmentDtoToJSON(value.department),
     };
 }
 

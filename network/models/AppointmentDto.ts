@@ -46,6 +46,12 @@ export interface AppointmentDto {
     physician?: Physician;
     /**
      * 
+     * @type {Date}
+     * @memberof AppointmentDto
+     */
+    time?: Date;
+    /**
+     * 
      * @type {string}
      * @memberof AppointmentDto
      */
@@ -65,6 +71,7 @@ export function AppointmentDtoFromJSONTyped(json: any, ignoreDiscriminator: bool
         'id': !exists(json, 'id') ? undefined : json['id'],
         'userId': !exists(json, 'userId') ? undefined : json['userId'],
         'physician': !exists(json, 'physician') ? undefined : PhysicianFromJSON(json['physician']),
+        'time': !exists(json, 'time') ? undefined : (new Date(json['time'])),
         'description': !exists(json, 'description') ? undefined : json['description'],
     };
 }
@@ -81,6 +88,7 @@ export function AppointmentDtoToJSON(value?: AppointmentDto | null): any {
         'id': value.id,
         'userId': value.userId,
         'physician': PhysicianToJSON(value.physician),
+        'time': value.time === undefined ? undefined : (value.time.toISOString()),
         'description': value.description,
     };
 }

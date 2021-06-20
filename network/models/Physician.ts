@@ -35,6 +35,12 @@ export interface Physician {
      * @type {number}
      * @memberof Physician
      */
+    id?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof Physician
+     */
     userId?: number;
     /**
      * 
@@ -66,6 +72,7 @@ export function PhysicianFromJSONTyped(json: any, ignoreDiscriminator: boolean):
     }
     return {
         
+        'id': !exists(json, 'id') ? undefined : json['id'],
         'userId': !exists(json, 'userId') ? undefined : json['userId'],
         'user': !exists(json, 'user') ? undefined : UserFromJSON(json['user']),
         'departmentId': !exists(json, 'departmentId') ? undefined : json['departmentId'],
@@ -82,6 +89,7 @@ export function PhysicianToJSON(value?: Physician | null): any {
     }
     return {
         
+        'id': value.id,
         'userId': value.userId,
         'user': UserToJSON(value.user),
         'departmentId': value.departmentId,

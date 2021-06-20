@@ -40,6 +40,12 @@ export interface UserDto {
     username?: string | null;
     /**
      * 
+     * @type {string}
+     * @memberof UserDto
+     */
+    name?: string | null;
+    /**
+     * 
      * @type {Gender}
      * @memberof UserDto
      */
@@ -82,6 +88,7 @@ export function UserDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): U
         
         'id': !exists(json, 'id') ? undefined : json['id'],
         'username': !exists(json, 'username') ? undefined : json['username'],
+        'name': !exists(json, 'name') ? undefined : json['name'],
         'gender': !exists(json, 'gender') ? undefined : GenderFromJSON(json['gender']),
         'birthday': !exists(json, 'birthday') ? undefined : (json['birthday'] === null ? null : new Date(json['birthday'])),
         'age': !exists(json, 'age') ? undefined : json['age'],
@@ -101,6 +108,7 @@ export function UserDtoToJSON(value?: UserDto | null): any {
         
         'id': value.id,
         'username': value.username,
+        'name': value.name,
         'gender': GenderToJSON(value.gender),
         'birthday': value.birthday === undefined ? undefined : (value.birthday === null ? null : value.birthday.toISOString().substr(0,10)),
         'phone': value.phone,

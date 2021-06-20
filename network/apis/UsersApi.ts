@@ -77,10 +77,6 @@ export class UsersApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
-        }
-
         const response = await this.request({
             path: `/Users`,
             method: 'POST',
@@ -110,10 +106,6 @@ export class UsersApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
-        }
-
         const response = await this.request({
             path: `/Users/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: 'DELETE',
@@ -136,10 +128,6 @@ export class UsersApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
-        }
 
         const response = await this.request({
             path: `/Users/Current`,
@@ -169,10 +157,6 @@ export class UsersApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
-        }
-
         const response = await this.request({
             path: `/Users/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: 'GET',
@@ -196,10 +180,6 @@ export class UsersApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
-        }
 
         const response = await this.request({
             path: `/Users`,
@@ -227,10 +207,6 @@ export class UsersApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
-        }
-
         const response = await this.request({
             path: `/Users/Login`,
             method: 'POST',
@@ -257,10 +233,6 @@ export class UsersApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
-        }
 
         const response = await this.request({
             path: `/Users/Current`,
@@ -292,10 +264,6 @@ export class UsersApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
-        }
 
         const response = await this.request({
             path: `/Users/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),

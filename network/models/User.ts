@@ -52,6 +52,12 @@ export interface User {
     role?: string | null;
     /**
      * 
+     * @type {string}
+     * @memberof User
+     */
+    name?: string | null;
+    /**
+     * 
      * @type {Gender}
      * @memberof User
      */
@@ -96,6 +102,7 @@ export function UserFromJSONTyped(json: any, ignoreDiscriminator: boolean): User
         'username': !exists(json, 'username') ? undefined : json['username'],
         'passwordHash': !exists(json, 'passwordHash') ? undefined : json['passwordHash'],
         'role': !exists(json, 'role') ? undefined : json['role'],
+        'name': !exists(json, 'name') ? undefined : json['name'],
         'gender': !exists(json, 'gender') ? undefined : GenderFromJSON(json['gender']),
         'birthday': !exists(json, 'birthday') ? undefined : (json['birthday'] === null ? null : new Date(json['birthday'])),
         'age': !exists(json, 'age') ? undefined : json['age'],
@@ -117,6 +124,7 @@ export function UserToJSON(value?: User | null): any {
         'username': value.username,
         'passwordHash': value.passwordHash,
         'role': value.role,
+        'name': value.name,
         'gender': GenderToJSON(value.gender),
         'birthday': value.birthday === undefined ? undefined : (value.birthday === null ? null : value.birthday.toISOString()),
         'phone': value.phone,

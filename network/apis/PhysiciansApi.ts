@@ -31,6 +31,10 @@ export interface GetPhysicianByIdRequest {
     id: number;
 }
 
+export interface GetPhysiciansRequest {
+    departmentId?: number;
+}
+
 export interface RegisterPhysicianRequest {
     physicianRegisterForm?: PhysicianRegisterForm;
 }
@@ -50,10 +54,6 @@ export class PhysiciansApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
-        }
 
         const response = await this.request({
             path: `/Physicians/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
@@ -82,10 +82,6 @@ export class PhysiciansApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
-        }
-
         const response = await this.request({
             path: `/Physicians/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: 'GET',
@@ -105,14 +101,14 @@ export class PhysiciansApi extends runtime.BaseAPI {
 
     /**
      */
-    async getPhysiciansRaw(): Promise<runtime.ApiResponse<Array<PhysicianDto>>> {
+    async getPhysiciansRaw(requestParameters: GetPhysiciansRequest): Promise<runtime.ApiResponse<Array<PhysicianDto>>> {
         const queryParameters: any = {};
 
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
+        if (requestParameters.departmentId !== undefined) {
+            queryParameters['departmentId'] = requestParameters.departmentId;
         }
+
+        const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
             path: `/Physicians`,
@@ -126,8 +122,8 @@ export class PhysiciansApi extends runtime.BaseAPI {
 
     /**
      */
-    async getPhysicians(): Promise<Array<PhysicianDto>> {
-        const response = await this.getPhysiciansRaw();
+    async getPhysicians(requestParameters: GetPhysiciansRequest): Promise<Array<PhysicianDto>> {
+        const response = await this.getPhysiciansRaw(requestParameters);
         return await response.value();
     }
 
@@ -139,10 +135,6 @@ export class PhysiciansApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
-        }
 
         const response = await this.request({
             path: `/Physicians`,

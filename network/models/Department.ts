@@ -56,6 +56,12 @@ export interface Department {
     hospital?: Hospital;
     /**
      * 
+     * @type {string}
+     * @memberof Department
+     */
+    section?: string | null;
+    /**
+     * 
      * @type {Array<Physician>}
      * @memberof Department
      */
@@ -76,6 +82,7 @@ export function DepartmentFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'name': !exists(json, 'name') ? undefined : json['name'],
         'hospitalId': !exists(json, 'hospitalId') ? undefined : json['hospitalId'],
         'hospital': !exists(json, 'hospital') ? undefined : HospitalFromJSON(json['hospital']),
+        'section': !exists(json, 'section') ? undefined : json['section'],
         'physicians': !exists(json, 'physicians') ? undefined : (json['physicians'] === null ? null : (json['physicians'] as Array<any>).map(PhysicianFromJSON)),
     };
 }
@@ -93,6 +100,7 @@ export function DepartmentToJSON(value?: Department | null): any {
         'name': value.name,
         'hospitalId': value.hospitalId,
         'hospital': HospitalToJSON(value.hospital),
+        'section': value.section,
         'physicians': value.physicians === undefined ? undefined : (value.physicians === null ? null : (value.physicians as Array<any>).map(PhysicianToJSON)),
     };
 }
