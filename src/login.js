@@ -52,6 +52,7 @@ export default function Login() {
         const loginForm = {username, password}
         try {
             const res = await userApi.login({loginForm})
+            res.token = `Bearer ${res.token}`
             dispatch({type: 'SET_LOGIN', payload: res})
             storeContext({
                 loginState: true,

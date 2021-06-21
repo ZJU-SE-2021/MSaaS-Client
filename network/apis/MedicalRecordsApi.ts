@@ -50,6 +50,10 @@ export class MedicalRecordsApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
+        }
+
         const response = await this.request({
             path: `/MedicalRecords`,
             method: 'POST',
@@ -78,6 +82,10 @@ export class MedicalRecordsApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
+        }
 
         const response = await this.request({
             path: `/MedicalRecords/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
@@ -108,6 +116,10 @@ export class MedicalRecordsApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
+        }
 
         const response = await this.request({
             path: `/MedicalRecords/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
