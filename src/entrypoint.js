@@ -9,6 +9,7 @@ import newAppointment from "./appointments/newAppointment";
 import Detail from "./mine/detail";
 import UserProfile from "./mine/profile";
 import DoctorChat from "./mine/doctorChat";
+// import VideoChat from "./mine/videoChat";
 
 const Stack = createStackNavigator();
 
