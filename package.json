@@ -31,7 +31,8 @@
     "react-native-signalr": "^1.0.6",
     "react-native-skeleton-content": "^1.0.22",
     "react-native-vector-icons": "^8.1.0",
-    "react-native-web": "~0.13.12"
+    "react-native-web": "~0.13.12",
+    "react-native-webrtc": "^1.89.3"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",

@@ -24,6 +24,7 @@ export default function Entrypoint() {
                 <Stack.Screen name='Detail' component={Detail}/>
                 <Stack.Screen name='UserProfile' component={UserProfile}/>
                 <Stack.Screen name='DoctorChat' component={DoctorChat}/>
+                {/*<Stack.Screen name='VideoChat' component={VideoChat}/>*/}
             </Stack.Navigator>
         </NavigationContainer>
     )
