@@ -1,6 +1,6 @@
 import {StyleSheet, View} from 'react-native';
 import * as React from 'react';
-import {Appbar, List} from 'react-native-paper';
+import {Appbar, List, Snackbar} from 'react-native-paper';
 import {useNavigation, useRoute} from "@react-navigation/native";
 import ScreenWrapper from "../components/ScreenWrapper";
 import {useEffect, useState} from "react";
@@ -92,6 +92,12 @@ const DepartmentList = () => {
                 </List.Section>
                 </LoadingWrapper>
             </ScreenWrapper>
+            <Snackbar
+                visible={showMessage}
+                onDismiss={() => setShowMessage(false)}
+            >
+                {message}
+            </Snackbar>
         </View>
     );
 };

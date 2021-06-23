@@ -4,7 +4,7 @@ import {View, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import ScreenWrapper from "../components/ScreenWrapper";
 import LoadingWrapper from "../components/LoadingWrapper";
-import {Configuration, HospitalCreationFormFromJSON, HospitalsApi} from "../../network";
+import {Configuration, HospitalsApi} from "../../network";
 import {InitialState as state} from "../../store/reducer";
 
 
