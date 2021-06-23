@@ -60,17 +60,7 @@ export default function Login() {
                 jwtToken: res.token
             }).then()
         } catch (e) {
-            switch (e.status) {
-                case 400:
-                    setMessage('用户名或密码错误')
-                    break
-                case 500:
-                    setMessage('服务器错误')
-                    break
-                default:
-                    setMessage('网络错误')
-                    break
-            }
+            setMessage('登录失败，请检查用户名、密码、网络')
             setShowMessage(true)
             setLoading(false)
         }
