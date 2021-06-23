@@ -4,12 +4,7 @@ import {Paragraph, Portal, Dialog} from 'react-native-paper';
 
 const isIOS = Platform.OS === 'ios';
 
-const DialogWithLoadingIndicator = ({visible, close, title, content}: {
-    visible: boolean;
-    close: () => void;
-    title: string;
-    content: string;
-}) => (
+const DialogWithLoadingIndicator = ({visible, close, title, content}) => (
     <Portal>
         <Dialog onDismiss={close} visible={visible}>
             <Dialog.Title>{title}</Dialog.Title>
