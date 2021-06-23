@@ -2,9 +2,11 @@ import {Searchbar, List, FAB, Card, Button} from 'react-native-paper';
 import React, {useState} from "react";
 import {View, StyleSheet, ScrollView} from 'react-native';
 import {useNavigation} from "@react-navigation/native";
+import {CreateHospitalRequest, HospitalCreationForm, HospitalsApi} from "../../network";
 
 class Record {
-    constructor(hospital, department, date, status) {
+    constructor(id, hospital, department, date, status) {
+        this.id = id
         this.hospital = hospital
         this.department = department
         this.date = (date)
@@ -54,10 +56,10 @@ export default function RecordSelection() {
     const onChangeSearch = query => setSearchQuery(query);
 
     const records = [
-        new Record('杭州市第一医院', '呼吸科', "2021/4/10 9:30", "scheduled"),
-        new Record('杭州市第一医院', '消化科', "2021/3/10 11:00", "pending"),
-        new Record('浙大医学院附属第一医院', '呼吸科', "2021/2/10 15:50", "done"),
-        new Record('杭州市第二医院', '儿科', "2021/1/10 14:20", "done"),
+        new Record(1, '杭州市第一医院', '呼吸科', "2021/4/10 9:30", "scheduled"),
+        new Record(2, '杭州市第一医院', '消化科', "2021/3/10 11:00", "pending"),
+        new Record(3, '浙大医学院附属第一医院', '呼吸科', "2021/2/10 15:50", "done"),
+        new Record(4, '杭州市第二医院', '儿科', "2021/1/10 14:20", "done"),
     ];
 
     const recordIconMap = {
@@ -74,14 +76,14 @@ export default function RecordSelection() {
                     return (record.hospital.includes(searchQuery) || record.department.includes(searchQuery)
                         || record.date.includes(searchQuery))
                 })
-                    .map((record, index) => {
+                    .map((record) => {
                         return <List.Item
                             style={style.card}
-                            key={index}
+                            key={record.id}
                             title={record.hospital + ' ' + record.department}
                             left={props => <List.Icon {...props} icon={recordIconMap[record.status]}/>}
                             description={record.date}
-                            onPress={() => navigation.navigate('Detail')}
+                            onPress={() => navigation.navigate('Detail', {appointmentId: record.id})}
                         />
                     })}
             </ScrollView>

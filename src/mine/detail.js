@@ -4,7 +4,7 @@ import {storeContext} from "../../store/localStorage";
 import {Context} from "../../store/reducer";
 import {StyleSheet, View} from "react-native";
 import RecordSelection from "./record"
-import {useNavigation} from "@react-navigation/native";
+import {useNavigation, useRoute} from "@react-navigation/native";
 import ScreenWrapper from "../components/ScreenWrapper";
 
 const style = StyleSheet.create({
@@ -22,6 +22,7 @@ function logout(state, dispatch) {
 
 export default function Detail() {
     const navigation = useNavigation()
+    const route = useRoute()
     const [state, dispatch] = useContext(Context)
 
     return (
@@ -37,8 +38,8 @@ export default function Detail() {
                     <Card.Cover source={pic}/>
                     <Card.Content>
                         <Title>已完成</Title>
-                        <Paragraph>Card content</Paragraph>
-                        <Button icon="message-bulleted" mode="contained" onPress={() => navigation.navigate('DoctorChat')}>
+                        <Paragraph>{route.params.appointmentId}</Paragraph>
+                        <Button icon="message-bulleted" mode="contained" onPress={() => navigation.navigate('DoctorChat', {appointmentId: route.params.appointmentId})}>
                             联系医生
                         </Button>
                     </Card.Content>

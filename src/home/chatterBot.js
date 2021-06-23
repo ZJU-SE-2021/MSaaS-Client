@@ -2,6 +2,8 @@ import React, {useState, useCallback, useEffect} from 'react'
 import {GiftedChat} from 'react-native-gifted-chat'
 import {Appbar} from "react-native-paper";
 import {useNavigation} from "@react-navigation/native";
+import uuid from "../../utils/uuid";
+
 
 export function ChatterBot() {
     const navigation = useNavigation()
@@ -21,13 +23,6 @@ export function ChatterBot() {
             },
         ])
     }, [])
-
-    function uuid() {
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-            return v.toString(16);
-        });
-    }
 
     const onSend = useCallback((messages = []) => {
         console.log(messages)
