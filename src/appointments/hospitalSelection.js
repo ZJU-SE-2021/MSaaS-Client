@@ -9,7 +9,8 @@ import {InitialState as state} from "../../store/reducer";
 
 
 class Hospital {
-    constructor(name, address) {
+    constructor(id, name, address) {
+        this.id = id;
         this.name = name;
         this.address = address;
     }
@@ -61,13 +62,12 @@ export default function HospitalSelection() {
 
     function getHospitals() {
         const conf = new Configuration({apiKey: state.jwtToken});
-        console.log(state.jwtToken);
         const hospitalApi = new HospitalsApi(conf);
 
         hospitalApi.getHospitals().then(res => {
             let temp = []
             res.map(hospital => {
-                temp.push(new Hospital(hospital.name, hospital.address))
+                temp.push(new Hospital(hospital.id, hospital.name, hospital.address))
             })
             setHospitals(temp);
             setIsLoading(false);
