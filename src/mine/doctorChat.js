@@ -68,6 +68,7 @@ export default function DoctorChat() {
                     navigation.goBack()
                 }}/>
                 <Appbar.Content title="医生交流" subtitle={state.username}/>
+                <Appbar.Action icon="message-video" onPress={() => {}} />
             </Appbar.Header>
             <GiftedChat
                 messages={messages}
