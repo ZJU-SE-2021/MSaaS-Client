@@ -9,8 +9,8 @@ describe('<App />', () => {
         expect(tree.children.length).toBe(1)
     })
 
-    it('render result', () => {
-        const tree = renderer.create(<App />).toJSON()
-        expect(tree).toMatchSnapshot()
-    })
+    // it('render result', () => {
+    //     const tree = renderer.create(<App />).toJSON()
+    //     expect(tree).toMatchSnapshot()
+    // })
 })
