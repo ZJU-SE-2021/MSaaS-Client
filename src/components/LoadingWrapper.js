@@ -1,7 +1,7 @@
 import React from "react";
 import SkeletonContent from "react-native-skeleton-content";
 
-export default function LoadingWrapper({children, isLoading = true, style, ...rest}: Props) {
+export default function LoadingWrapper({children, isLoading = true, style, ...rest}) {
     const placeHolderLayout = Array(6).fill(
         {
             width: "100%",
