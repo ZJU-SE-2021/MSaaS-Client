@@ -63,7 +63,7 @@ export class DepartmentsApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/Departments`,
+            path: `/Admin/Departments`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -96,7 +96,7 @@ export class DepartmentsApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/Departments/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            path: `/Admin/Departments/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -193,7 +193,7 @@ export class DepartmentsApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/Departments/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            path: `/Admin/Departments/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,

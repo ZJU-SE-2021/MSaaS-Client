@@ -14,10 +14,18 @@
 
 import { exists, mapValues } from '../runtime';
 import {
-    Physician,
-    PhysicianFromJSON,
-    PhysicianFromJSONTyped,
-    PhysicianToJSON,
+    MedicalRecordDto,
+    MedicalRecordDtoFromJSON,
+    MedicalRecordDtoFromJSONTyped,
+    MedicalRecordDtoToJSON,
+    PhysicianDto,
+    PhysicianDtoFromJSON,
+    PhysicianDtoFromJSONTyped,
+    PhysicianDtoToJSON,
+    UserDto,
+    UserDtoFromJSON,
+    UserDtoFromJSONTyped,
+    UserDtoToJSON,
 } from './';
 
 /**
@@ -34,16 +42,16 @@ export interface AppointmentDto {
     id?: number;
     /**
      * 
-     * @type {number}
+     * @type {UserDto}
      * @memberof AppointmentDto
      */
-    userId?: number;
+    user?: UserDto;
     /**
      * 
-     * @type {Physician}
+     * @type {PhysicianDto}
      * @memberof AppointmentDto
      */
-    physician?: Physician;
+    physician?: PhysicianDto;
     /**
      * 
      * @type {Date}
@@ -56,6 +64,12 @@ export interface AppointmentDto {
      * @memberof AppointmentDto
      */
     description?: string | null;
+    /**
+     * 
+     * @type {MedicalRecordDto}
+     * @memberof AppointmentDto
+     */
+    medicalRecord?: MedicalRecordDto;
 }
 
 export function AppointmentDtoFromJSON(json: any): AppointmentDto {
@@ -69,10 +83,11 @@ export function AppointmentDtoFromJSONTyped(json: any, ignoreDiscriminator: bool
     return {
         
         'id': !exists(json, 'id') ? undefined : json['id'],
-        'userId': !exists(json, 'userId') ? undefined : json['userId'],
-        'physician': !exists(json, 'physician') ? undefined : PhysicianFromJSON(json['physician']),
+        'user': !exists(json, 'user') ? undefined : UserDtoFromJSON(json['user']),
+        'physician': !exists(json, 'physician') ? undefined : PhysicianDtoFromJSON(json['physician']),
         'time': !exists(json, 'time') ? undefined : (new Date(json['time'])),
         'description': !exists(json, 'description') ? undefined : json['description'],
+        'medicalRecord': !exists(json, 'medicalRecord') ? undefined : MedicalRecordDtoFromJSON(json['medicalRecord']),
     };
 }
 
@@ -86,10 +101,11 @@ export function AppointmentDtoToJSON(value?: AppointmentDto | null): any {
     return {
         
         'id': value.id,
-        'userId': value.userId,
-        'physician': PhysicianToJSON(value.physician),
+        'user': UserDtoToJSON(value.user),
+        'physician': PhysicianDtoToJSON(value.physician),
         'time': value.time === undefined ? undefined : (value.time.toISOString()),
         'description': value.description,
+        'medicalRecord': MedicalRecordDtoToJSON(value.medicalRecord),
     };
 }
 

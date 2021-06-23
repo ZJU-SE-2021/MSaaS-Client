@@ -115,7 +115,7 @@ export class UsersApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/Users/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            path: `/Admin/Users/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -174,7 +174,7 @@ export class UsersApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/Users/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            path: `/Admin/Users/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -202,7 +202,7 @@ export class UsersApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/Users`,
+            path: `/Admin/Users`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -298,7 +298,7 @@ export class UsersApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/Users/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            path: `/Admin/Users/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,

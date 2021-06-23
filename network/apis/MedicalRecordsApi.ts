@@ -31,6 +31,10 @@ export interface GetMedicalRecordByIdRequest {
     id: number;
 }
 
+export interface GetPhysicianMedicalRecordByIdRequest {
+    id: number;
+}
+
 export interface UpdateMedicalRecordRequest {
     id: number;
     medicalRecordForm?: MedicalRecordForm;
@@ -55,7 +59,7 @@ export class MedicalRecordsApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/MedicalRecords`,
+            path: `/Physicians/MedicalRecords`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -106,6 +110,38 @@ export class MedicalRecordsApi extends runtime.BaseAPI {
 
     /**
      */
+    async getPhysicianMedicalRecordByIdRaw(requestParameters: GetPhysicianMedicalRecordByIdRequest): Promise<runtime.ApiResponse<MedicalRecordDto>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getPhysicianMedicalRecordById.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
+        }
+
+        const response = await this.request({
+            path: `/Physicians/MedicalRecords/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MedicalRecordDtoFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async getPhysicianMedicalRecordById(requestParameters: GetPhysicianMedicalRecordByIdRequest): Promise<MedicalRecordDto> {
+        const response = await this.getPhysicianMedicalRecordByIdRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     */
     async updateMedicalRecordRaw(requestParameters: UpdateMedicalRecordRequest): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.id === null || requestParameters.id === undefined) {
             throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling updateMedicalRecord.');
@@ -122,7 +158,7 @@ export class MedicalRecordsApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/MedicalRecords/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            path: `/Physicians/MedicalRecords/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,

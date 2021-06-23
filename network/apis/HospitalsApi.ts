@@ -59,7 +59,7 @@ export class HospitalsApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/Hospitals`,
+            path: `/Admin/Hospitals`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -92,7 +92,7 @@ export class HospitalsApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/Hospitals/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            path: `/Admin/Hospitals/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -185,7 +185,7 @@ export class HospitalsApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/Hospitals/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            path: `/Admin/Hospitals/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,

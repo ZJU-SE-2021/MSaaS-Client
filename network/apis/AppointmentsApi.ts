@@ -31,6 +31,10 @@ export interface GetAppointmentByIdRequest {
     id: number;
 }
 
+export interface GetPhysicianAppointmentByIdRequest {
+    id: number;
+}
+
 /**
  * 
  */
@@ -96,6 +100,94 @@ export class AppointmentsApi extends runtime.BaseAPI {
      */
     async getAppointmentById(requestParameters: GetAppointmentByIdRequest): Promise<AppointmentDto> {
         const response = await this.getAppointmentByIdRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     */
+    async getAppointmentsRaw(): Promise<runtime.ApiResponse<Array<AppointmentDto>>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
+        }
+
+        const response = await this.request({
+            path: `/Appointments`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(AppointmentDtoFromJSON));
+    }
+
+    /**
+     */
+    async getAppointments(): Promise<Array<AppointmentDto>> {
+        const response = await this.getAppointmentsRaw();
+        return await response.value();
+    }
+
+    /**
+     */
+    async getPhysicianAppointmentByIdRaw(requestParameters: GetPhysicianAppointmentByIdRequest): Promise<runtime.ApiResponse<AppointmentDto>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getPhysicianAppointmentById.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
+        }
+
+        const response = await this.request({
+            path: `/Physicians/Appointments/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AppointmentDtoFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async getPhysicianAppointmentById(requestParameters: GetPhysicianAppointmentByIdRequest): Promise<AppointmentDto> {
+        const response = await this.getPhysicianAppointmentByIdRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     */
+    async getPhysicianAppointmentsRaw(): Promise<runtime.ApiResponse<Array<AppointmentDto>>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Authorization"] = this.configuration.apiKey("Authorization"); // Bearer authentication
+        }
+
+        const response = await this.request({
+            path: `/Physicians/Appointments`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(AppointmentDtoFromJSON));
+    }
+
+    /**
+     */
+    async getPhysicianAppointments(): Promise<Array<AppointmentDto>> {
+        const response = await this.getPhysicianAppointmentsRaw();
         return await response.value();
     }
 

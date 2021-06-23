@@ -60,7 +60,7 @@ export class PhysiciansApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/Physicians/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            path: `/Admin/Physicians/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -153,7 +153,7 @@ export class PhysiciansApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/Physicians`,
+            path: `/Admin/Physicians`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
