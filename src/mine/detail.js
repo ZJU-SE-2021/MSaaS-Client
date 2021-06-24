@@ -38,7 +38,10 @@ export default function Detail() {
                     <Card.Cover source={pic}/>
                     <Card.Content>
                         <Title>已完成</Title>
-                        <Paragraph>{route.params.appointmentId}</Paragraph>
+                        <Paragraph>{`预约序号：${route.params.appointmentId}`}</Paragraph>
+                        <Paragraph>{`预约时间：${route.params.timeStr}`}</Paragraph>
+                        <Paragraph>{`预约医生：${route.params.doctorName}`}</Paragraph>
+                        <Paragraph>{`症状描述：${route.params.description}`}</Paragraph>
                         <Button icon="message-bulleted" mode="contained" onPress={() => navigation.navigate('DoctorChat', {appointmentId: route.params.appointmentId})}>
                             联系医生
                         </Button>
