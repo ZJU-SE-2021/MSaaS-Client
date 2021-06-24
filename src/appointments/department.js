@@ -31,23 +31,25 @@ const DepartmentList = () => {
             hospitalId: route.params.hospital.id
         }).then(res => {
             let temp = [];
-            res.map(department => {
-                if (temp.some(sec => { return sec.name === department.section; })) {
-                    temp.filter(sec => { return sec.name === department.section; })[0]
-                        .departments.push({
-                            depName: department.name,
-                            depId: department.id
-                        })
-                } else {
+
+            for (const department of res) {
+                const matched = temp.filter(sec => { return sec.name === department.section; });
+                if (matched.length === 0) {
                     temp.push({
                         name: department.section,
                         departments: [ {
                             depName: department.name,
                             depId: department.id
                         } ]
-                    })
+                    });
+                } else {
+                    matched[0].departments.push({
+                        depName: department.name,
+                        depId: department.id
+                    });
                 }
-            })
+            }
+
             setDepartments(temp);
             setIsLoading(false);
         }, reason => {

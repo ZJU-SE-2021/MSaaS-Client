@@ -46,7 +46,7 @@ const newAppointment = () => {
             <Appbar.BackAction onPress={() => {
                 navigation.goBack()
             }}/>
-            <Appbar.Content title="挂号" subtitle={`${route.params.hospital} - ${route.params.department} - ${route.params.specificDepartment} - ${route.params.doctor}`}/>
+            <Appbar.Content title="挂号" subtitle={`${route.params.hospital} - ${route.params.department} - ${route.params.specificDepartment} - ${route.params.doctor.name}`}/>
         </Appbar.Header>
         <ScreenWrapper>
             <Card>
@@ -89,7 +89,7 @@ const newAppointment = () => {
             <Dialog visible={showCheck} onDismiss={() => setShowCheck(false)}>
                 <Dialog.Title>预约挂号</Dialog.Title>
                 <Dialog.Content>
-                    <Paragraph>您正在预约{`${route.params.hospital}${route.params.department}${route.params.specificDepartment}${route.params.doctor}医生${date.toLocaleDateString('zh-CN')}的诊疗，症状是${symptom}，请确认无误后继续`}</Paragraph>
+                    <Paragraph>您正在预约{`${route.params.hospital}${route.params.department}${route.params.specificDepartment}${route.params.doctor.name}医生${date.toLocaleDateString('zh-CN')}的诊疗，症状是${symptom}，请确认无误后继续`}</Paragraph>
                 </Dialog.Content>
                 <Dialog.Actions>
                     <Button onPress={onSubmit}>确认</Button>
