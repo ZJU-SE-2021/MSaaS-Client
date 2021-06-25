@@ -63,13 +63,6 @@ export default function RecordSelection() {
     const [isLoading, setLoading] = useState(true);
     const onChangeSearch = query => setSearchQuery(query);
 
-    // const records = [
-    //     new Record(1, '杭州市第一医院', '呼吸科', "2021/4/10 9:30", "scheduled"),
-    //     new Record(2, '杭州市第一医院', '消化科', "2021/3/10 11:00", "pending"),
-    //     new Record(3, '浙大医学院附属第一医院', '呼吸科', "2021/2/10 15:50", "done"),
-    //     new Record(4, '杭州市第二医院', '儿科', "2021/1/10 14:20", "done"),
-    // ];
-
     function getRecords() {
         const conf = new Configuration({apiKey: state.jwtToken});
         const appointmentsApi = new AppointmentsApi(conf);
@@ -79,12 +72,12 @@ export default function RecordSelection() {
             for (const appointment of res) {
                 temp.push(new Record(
                     appointment.id,
-                    appointment.physician.department.hospitalId.toString(),
+                    appointment.physician.department.hospital.name,
                     appointment.physician.department.name,
                     appointment.time.toLocaleString('zh-CN'),
                     appointment.description,
-                    'mmm',
-                    'scheduled'
+                    appointment.physician.name,
+                    appointment.state
                 ));
             }
             setRecords(temp);
@@ -101,9 +94,8 @@ export default function RecordSelection() {
     }, []);
 
     const recordIconMap = {
-        'done': 'sticker-check-outline',
-        'pending': 'medical-bag',
-        'scheduled': 'calendar-month'
+        'Finished': 'sticker-check-outline',
+        'InProgress': 'medical-bag',
     }
 
     return (

@@ -54,7 +54,7 @@ const newAppointment = () => {
                         params: {
                             appointmentId: res.id,
                             doctorName: res.physician.name,
-                            hospitalName: 'mmm', // TODO
+                            hospitalName: res.hospital.name, // TODO
                             departmentName: res.physician.department.name,
                             timeStr: res.time.toLocaleDateString('zh-CN'),
                             description: res.description
