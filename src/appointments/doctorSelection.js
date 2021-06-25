@@ -3,10 +3,10 @@ import {Appbar, Card, List, Snackbar} from 'react-native-paper';
 import {StyleSheet, View} from "react-native";
 import {useNavigation, useRoute} from "@react-navigation/native";
 import ScreenWrapper from "../components/ScreenWrapper";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import LoadingWrapper from "../components/LoadingWrapper";
 import {Configuration, PhysiciansApi} from "../../network";
-import {InitialState as state} from "../../store/reducer";
+import {Context, InitialState as state} from "../../store/reducer";
 
 const style = StyleSheet.create({
     container: {
@@ -17,6 +17,8 @@ const style = StyleSheet.create({
 const DoctorSelection = () => {
     const navigation = useNavigation();
     const route = useRoute();
+    const [state, dispatch] = useContext(Context)
+
     const [isLoading, setIsLoading] = useState(true);
     const [showMessage, setShowMessage] = useState(false);
     const [doctors, setDoctors] = useState([]);

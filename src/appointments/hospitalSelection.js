@@ -1,11 +1,11 @@
 import {Searchbar, List, FAB, Card, Snackbar} from 'react-native-paper';
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {View, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import ScreenWrapper from "../components/ScreenWrapper";
 import LoadingWrapper from "../components/LoadingWrapper";
 import {Configuration, HospitalsApi} from "../../network";
-import {InitialState as state} from "../../store/reducer";
+import {Context, InitialState as state} from "../../store/reducer";
 
 
 class Hospital {
@@ -44,6 +44,8 @@ const picPlaceHolder = require('../../assets/hospital-place-holder.png');
 
 export default function HospitalSelection() {
     const navigation = useNavigation();
+    const [state, dispatch] = useContext(Context)
+
     const [searchQuery, setSearchQuery] = useState('');
     const [cardOrList, setCardOrList] = useState(true);
     const [isLoading, setIsLoading] = useState(true);

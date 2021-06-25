@@ -3,9 +3,9 @@ import * as React from 'react';
 import {Appbar, List, Snackbar} from 'react-native-paper';
 import {useNavigation, useRoute} from "@react-navigation/native";
 import ScreenWrapper from "../components/ScreenWrapper";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {Configuration, DepartmentsApi, GetDepartmentsRequest, HospitalsApi} from "../../network";
-import {InitialState as state} from "../../store/reducer";
+import {Context, InitialState as state} from "../../store/reducer";
 import LoadingWrapper from "../components/LoadingWrapper";
 
 
@@ -18,6 +18,8 @@ const style = StyleSheet.create({
 const DepartmentList = () => {
     const navigation = useNavigation();
     const route = useRoute();
+    const [state, dispatch] = useContext(Context)
+
     const [isLoading, setIsLoading] = useState(true);
     const [showMessage, setShowMessage] = useState(false);
     const [departments, setDepartments] = useState([]);

@@ -4,9 +4,9 @@ import {Platform, StyleSheet, Text, View} from "react-native";
 import {useNavigation, useRoute} from "@react-navigation/native";
 import ScreenWrapper from "../components/ScreenWrapper";
 import DateTimePicker from '@react-native-community/datetimepicker';
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {AppointmentsApi, Configuration} from "../../network";
-import {InitialState as state} from "../../store/reducer";
+import {Context, InitialState as state} from "../../store/reducer";
 import DialogWithLoadingIndicator from "../components/Dialog";
 
 const style = StyleSheet.create({
@@ -20,6 +20,8 @@ const pic = require('../../assets/undraw_medicine_b1ol.png');
 const newAppointment = () => {
     const navigation = useNavigation()
     const route = useRoute()
+    const [state, dispatch] = useContext(Context)
+
     const [showCheck, setShowCheck] = useState(false)
     const [date, setDate] = useState(new Date())
     const [symptom, setSymptom] = useState('')

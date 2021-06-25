@@ -1,9 +1,9 @@
 import {Searchbar, List, FAB, Card, Button, Snackbar} from 'react-native-paper';
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {View, StyleSheet, ScrollView} from 'react-native';
 import {useNavigation} from "@react-navigation/native";
 import {AppointmentsApi, Configuration, CreateHospitalRequest, HospitalCreationForm, HospitalsApi} from "../../network";
-import {InitialState as state} from "../../store/reducer";
+import {Context, InitialState as state} from "../../store/reducer";
 import LoadingWrapper from "../components/LoadingWrapper";
 
 class Record {
@@ -55,6 +55,7 @@ const style = StyleSheet.create({
 
 export default function RecordSelection() {
     const navigation = useNavigation();
+    const [state, dispatch] = useContext(Context)
 
     const [searchQuery, setSearchQuery] = useState('');
     const [records, setRecords] = useState([]);
