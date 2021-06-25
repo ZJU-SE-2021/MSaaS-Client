@@ -16,14 +16,6 @@ class Hospital {
     }
 }
 
-// const hospitals = [
-//     new Hospital('杭州市第一医院', '1.2'),
-//     new Hospital('杭州市第二医院', '1.3'),
-//     new Hospital('浙大医学院附属第一医院', '1.3'),
-//     new Hospital('浙大医学院附属第二医院', '1.4'),
-//     new Hospital('浙大医学院附属第三医院', '2.8')
-// ]
-
 const styles = StyleSheet.create({
     view: {
         flex: 1,
@@ -65,10 +57,10 @@ export default function HospitalSelection() {
         const hospitalApi = new HospitalsApi(conf);
 
         hospitalApi.getHospitals().then(res => {
-            let temp = []
-            res.map(hospital => {
-                temp.push(new Hospital(hospital.id, hospital.name, hospital.address))
-            })
+            let temp = [];
+            for (const hospital of res) {
+                temp.push(new Hospital(hospital.id, hospital.name, hospital.address));
+            }
             setHospitals(temp);
             setIsLoading(false);
         }, reason => {

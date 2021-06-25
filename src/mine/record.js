@@ -1,16 +1,20 @@
-import {Searchbar, List, FAB, Card, Button} from 'react-native-paper';
-import React, {useState} from "react";
+import {Searchbar, List, FAB, Card, Button, Snackbar} from 'react-native-paper';
+import React, {useEffect, useState} from "react";
 import {View, StyleSheet, ScrollView} from 'react-native';
 import {useNavigation} from "@react-navigation/native";
-import {CreateHospitalRequest, HospitalCreationForm, HospitalsApi} from "../../network";
+import {AppointmentsApi, Configuration, CreateHospitalRequest, HospitalCreationForm, HospitalsApi} from "../../network";
+import {InitialState as state} from "../../store/reducer";
+import LoadingWrapper from "../components/LoadingWrapper";
 
 class Record {
-    constructor(id, hospital, department, date, status) {
+    constructor(id, hospital, department, date, description, doctor, status) {
         this.id = id
         this.hospital = hospital
         this.department = department
-        this.date = (date)
+        this.date = date
         this.status = status
+        this.description = description
+        this.doctor = doctor
     }
 }
 
@@ -50,32 +54,59 @@ const style = StyleSheet.create({
 
 
 export default function RecordSelection() {
-    const navigation = useNavigation()
+    const navigation = useNavigation();
 
     const [searchQuery, setSearchQuery] = useState('');
+    const [records, setRecords] = useState([]);
+    const [showMessage, setShowMessage] = useState(false);
+    const [message, setMessage] = useState('');
+    const [isLoading, setLoading] = useState(true);
     const onChangeSearch = query => setSearchQuery(query);
 
-    const records = [
-        new Record(1, '杭州市第一医院', '呼吸科', "2021/4/10 9:30", "scheduled"),
-        new Record(2, '杭州市第一医院', '消化科', "2021/3/10 11:00", "pending"),
-        new Record(3, '浙大医学院附属第一医院', '呼吸科', "2021/2/10 15:50", "done"),
-        new Record(4, '杭州市第二医院', '儿科', "2021/1/10 14:20", "done"),
-    ];
+    function getRecords() {
+        const conf = new Configuration({apiKey: state.jwtToken});
+        const appointmentsApi = new AppointmentsApi(conf);
+
+        appointmentsApi.getAppointments().then(res => {
+            let temp = [];
+            for (const appointment of res) {
+                temp.push(new Record(
+                    appointment.id,
+                    appointment.physician.department.hospital.name,
+                    appointment.physician.department.name,
+                    appointment.time.toLocaleString('zh-CN'),
+                    appointment.description,
+                    appointment.physician.name,
+                    appointment.state
+                ));
+            }
+            setRecords(temp);
+            setLoading(false);
+        }, reason => {
+            setMessage('预约信息列表获取失败');
+            setShowMessage(true);
+            setLoading(false);
+        });
+    }
+
+    useEffect(() => {
+        getRecords();
+    }, []);
 
     const recordIconMap = {
-        'done': 'sticker-check-outline',
-        'pending': 'medical-bag',
-        'scheduled': 'calendar-month'
+        'Finished': 'sticker-check-outline',
+        'InProgress': 'medical-bag',
     }
 
     return (
         <View style={style.container}>
             <Searchbar placeholder='搜索诊疗记录' onChangeText={onChangeSearch} value={searchQuery}/>
+            <LoadingWrapper isLoading={isLoading}>
             <ScrollView>
-                {records.filter((record) => {
-                    return (record.hospital.includes(searchQuery) || record.department.includes(searchQuery)
-                        || record.date.includes(searchQuery))
-                })
+                {records
+                    .filter((record) => {
+                        return (record.hospital.includes(searchQuery) || record.department.includes(searchQuery));
+                    })
                     .map((record) => {
                         return <List.Item
                             style={style.card}
@@ -83,10 +114,24 @@ export default function RecordSelection() {
                             title={record.hospital + ' ' + record.department}
                             left={props => <List.Icon {...props} icon={recordIconMap[record.status]}/>}
                             description={record.date}
-                            onPress={() => navigation.navigate('Detail', {appointmentId: record.id})}
+                            onPress={() => navigation.navigate('Detail', {
+                                appointmentId: record.id,
+                                doctorName: record.doctor,
+                                hospitalName: record.hospital,
+                                departmentName: record.department,
+                                timeStr: record.date,
+                                description: record.description
+                            })}
                         />
                     })}
             </ScrollView>
+            </LoadingWrapper>
+            <Snackbar
+                visible={showMessage}
+                onDismiss={() => setShowMessage(false)}
+            >
+                {message}
+            </Snackbar>
         </View>
     )
 }

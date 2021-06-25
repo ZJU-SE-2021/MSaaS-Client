@@ -30,12 +30,9 @@ const DoctorSelection = () => {
             departmentId: route.params.depId
         }).then(res => {
             let temp = [];
-            res.map(doctor => {
-                temp.push({
-                    id: doctor.id,
-                    name: doctor.name
-                });
-            });
+            for (const doctor of res) {
+                temp.push({ id: doctor.id, name: doctor.name });
+            }
             setDoctors(temp);
             setIsLoading(false);
         }, reason => {

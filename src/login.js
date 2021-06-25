@@ -74,7 +74,7 @@ export default function Login() {
             <DialogWithLoadingIndicator
                 visible={isLoading}
                 close={() => setLoading(false)}
-                title={'请稍后'}
+                title={'请稍候'}
                 content={'正在登录...'}
             />
             <View style={style.outerView}>

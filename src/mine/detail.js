@@ -3,7 +3,6 @@ import React, {useContext} from "react";
 import {storeContext} from "../../store/localStorage";
 import {Context} from "../../store/reducer";
 import {StyleSheet, View} from "react-native";
-import RecordSelection from "./record"
 import {useNavigation, useRoute} from "@react-navigation/native";
 import ScreenWrapper from "../components/ScreenWrapper";
 
@@ -38,7 +37,12 @@ export default function Detail() {
                     <Card.Cover source={pic}/>
                     <Card.Content>
                         <Title>已完成</Title>
-                        <Paragraph>{route.params.appointmentId}</Paragraph>
+                        <Paragraph>{`预约序号：${route.params.appointmentId}`}</Paragraph>
+                        <Paragraph>{`预约时间：${route.params.timeStr}`}</Paragraph>
+                        <Paragraph>{`预约医院：${route.params.hospitalName}`}</Paragraph>
+                        <Paragraph>{`预约科室：${route.params.departmentName}`}</Paragraph>
+                        <Paragraph>{`预约医生：${route.params.doctorName}`}</Paragraph>
+                        <Paragraph>{`症状描述：${route.params.description}`}</Paragraph>
                         <Button icon="message-bulleted" mode="contained" onPress={() => navigation.navigate('DoctorChat', {appointmentId: route.params.appointmentId})}>
                             联系医生
                         </Button>

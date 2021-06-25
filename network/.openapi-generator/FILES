@@ -8,6 +8,7 @@ apis/index.ts
 index.ts
 models/AppointmentDto.ts
 models/AppointmentForm.ts
+models/AppointmentState.ts
 models/DepartmentCreationForm.ts
 models/DepartmentDto.ts
 models/Gender.ts
