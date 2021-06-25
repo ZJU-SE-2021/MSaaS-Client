@@ -1,11 +1,11 @@
 import * as React from 'react';
 import {Appbar, Button, Caption, Card, Dialog, List, Paragraph, Portal, Snackbar, TextInput} from 'react-native-paper';
-import {Image, Platform, StyleSheet, Text, View} from "react-native";
+import {Platform, StyleSheet, Text, View} from "react-native";
 import {useNavigation, useRoute} from "@react-navigation/native";
 import ScreenWrapper from "../components/ScreenWrapper";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {useState} from "react";
-import {AppointmentsApi, Configuratio, Configuration} from "../../network";
+import {AppointmentsApi, Configuration} from "../../network";
 import {InitialState as state} from "../../store/reducer";
 import DialogWithLoadingIndicator from "../components/Dialog";
 
@@ -54,7 +54,7 @@ const newAppointment = () => {
                         params: {
                             appointmentId: res.id,
                             doctorName: res.physician.name,
-                            hospitalName: res.hospital.name, // TODO
+                            hospitalName: res.physician.department.hospital.name, // TODO
                             departmentName: res.physician.department.name,
                             timeStr: res.time.toLocaleDateString('zh-CN'),
                             description: res.description
