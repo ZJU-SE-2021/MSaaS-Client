@@ -14,6 +14,10 @@
 
 import { exists, mapValues } from '../runtime';
 import {
+    AppointmentState,
+    AppointmentStateFromJSON,
+    AppointmentStateFromJSONTyped,
+    AppointmentStateToJSON,
     MedicalRecordDto,
     MedicalRecordDtoFromJSON,
     MedicalRecordDtoFromJSONTyped,
@@ -70,6 +74,12 @@ export interface AppointmentDto {
      * @memberof AppointmentDto
      */
     medicalRecord?: MedicalRecordDto;
+    /**
+     * 
+     * @type {AppointmentState}
+     * @memberof AppointmentDto
+     */
+    state?: AppointmentState;
 }
 
 export function AppointmentDtoFromJSON(json: any): AppointmentDto {
@@ -88,6 +98,7 @@ export function AppointmentDtoFromJSONTyped(json: any, ignoreDiscriminator: bool
         'time': !exists(json, 'time') ? undefined : (new Date(json['time'])),
         'description': !exists(json, 'description') ? undefined : json['description'],
         'medicalRecord': !exists(json, 'medicalRecord') ? undefined : MedicalRecordDtoFromJSON(json['medicalRecord']),
+        'state': !exists(json, 'state') ? undefined : AppointmentStateFromJSON(json['state']),
     };
 }
 
@@ -106,6 +117,7 @@ export function AppointmentDtoToJSON(value?: AppointmentDto | null): any {
         'time': value.time === undefined ? undefined : (value.time.toISOString()),
         'description': value.description,
         'medicalRecord': MedicalRecordDtoToJSON(value.medicalRecord),
+        'state': AppointmentStateToJSON(value.state),
     };
 }
 

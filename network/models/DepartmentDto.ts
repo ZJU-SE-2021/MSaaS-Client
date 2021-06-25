@@ -13,6 +13,13 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import {
+    HospitalDto,
+    HospitalDtoFromJSON,
+    HospitalDtoFromJSONTyped,
+    HospitalDtoToJSON,
+} from './';
+
 /**
  * 
  * @export
@@ -39,10 +46,10 @@ export interface DepartmentDto {
     section?: string | null;
     /**
      * 
-     * @type {number}
+     * @type {HospitalDto}
      * @memberof DepartmentDto
      */
-    hospitalId?: number;
+    hospital?: HospitalDto;
 }
 
 export function DepartmentDtoFromJSON(json: any): DepartmentDto {
@@ -58,7 +65,7 @@ export function DepartmentDtoFromJSONTyped(json: any, ignoreDiscriminator: boole
         'id': !exists(json, 'id') ? undefined : json['id'],
         'name': !exists(json, 'name') ? undefined : json['name'],
         'section': !exists(json, 'section') ? undefined : json['section'],
-        'hospitalId': !exists(json, 'hospitalId') ? undefined : json['hospitalId'],
+        'hospital': !exists(json, 'hospital') ? undefined : HospitalDtoFromJSON(json['hospital']),
     };
 }
 
@@ -74,7 +81,7 @@ export function DepartmentDtoToJSON(value?: DepartmentDto | null): any {
         'id': value.id,
         'name': value.name,
         'section': value.section,
-        'hospitalId': value.hospitalId,
+        'hospital': HospitalDtoToJSON(value.hospital),
     };
 }
 

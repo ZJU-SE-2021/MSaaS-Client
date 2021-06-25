@@ -1,5 +1,6 @@
 export * from './AppointmentDto';
 export * from './AppointmentForm';
+export * from './AppointmentState';
 export * from './DepartmentCreationForm';
 export * from './DepartmentDto';
 export * from './Gender';
