@@ -65,5 +65,7 @@
 	<string>MSaaS-Client</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Use Camera for Video Chat</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Use Microphone for Video Chat</string>
 </dict>
 </plist>

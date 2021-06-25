@@ -34,7 +34,8 @@
     "react-native-unimodules": "~0.13.3",
     "react-native-vector-icons": "^8.1.0",
     "react-native-web": "~0.13.12",
-    "react-native-webrtc": "^1.89.3"
+    "react-native-webrtc": "^1.89.3",
+    "react-native-webrtc-simple": "^1.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
