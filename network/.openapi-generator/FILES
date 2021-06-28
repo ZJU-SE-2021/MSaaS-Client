@@ -3,6 +3,7 @@ apis/DepartmentsApi.ts
 apis/HospitalsApi.ts
 apis/MedicalRecordsApi.ts
 apis/PhysiciansApi.ts
+apis/SummaryApi.ts
 apis/UsersApi.ts
 apis/index.ts
 index.ts
@@ -22,6 +23,7 @@ models/PhysicianDto.ts
 models/PhysicianRegisterForm.ts
 models/ProblemDetails.ts
 models/RegisterForm.ts
+models/SummaryDto.ts
 models/UpdateUserForm.ts
 models/UpdateUserFormAdmin.ts
 models/UserDto.ts

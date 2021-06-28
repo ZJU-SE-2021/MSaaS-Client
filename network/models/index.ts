@@ -14,6 +14,7 @@ export * from './PhysicianDto';
 export * from './PhysicianRegisterForm';
 export * from './ProblemDetails';
 export * from './RegisterForm';
+export * from './SummaryDto';
 export * from './UpdateUserForm';
 export * from './UpdateUserFormAdmin';
 export * from './UserDto';
