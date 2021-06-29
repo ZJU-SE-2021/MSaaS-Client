@@ -13,6 +13,12 @@ const style = StyleSheet.create({
     container: {
         flex: 1,
     },
+    textBar: {
+        marginTop: 10,
+        marginBottom: 10,
+        marginLeft: 20,
+        marginRight: 20,
+    },
 });
 
 export default function UserProfile() {
@@ -141,33 +147,31 @@ export default function UserProfile() {
                     navigation.goBack()
                 }}/>
                 <Appbar.Content title="个人信息" subtitle={state.username}/>
+                <Appbar.Action icon="logout" onPress={logout} />
             </Appbar.Header>
 
             <LoadingWrapper isLoading={isLoading}>
                 <ScreenWrapper>
-                    <TextInput label="姓名" value={name} onChangeText={setName}/>
-                    <Text>{"性别"}</Text>
-                    <ToggleButton.Row onValueChange={value => setGender(value)} value={gender}>
+                    <TextInput label="姓名" value={name} style={style.textBar} onChangeText={setName}/>
+                    <Text style={style.textBar}>{"性别"}</Text>
+                    <ToggleButton.Row style={style.textBar} onValueChange={value => setGender(value)} value={gender}>
                         <ToggleButton icon="gender-male" value="Male"/>
                         <ToggleButton icon="gender-female" value="Female"/>
                         <ToggleButton icon="gender-transgender" value="Other"/>
                     </ToggleButton.Row>
-                    <Text>{"生日"}</Text>
+                    <Text style={style.textBar}>{"生日"}</Text>
                     {Platform.OS !== 'web' ?
-                        <DateTimePicker testID="dateTimePicker" value={birthday} onChange={onDateChange}
+                        <DateTimePicker style={style.textBar} testID="dateTimePicker" value={birthday} onChange={onDateChange}
                                         maximumDate={Date.now()}/> :
-                        <Text type="datetime-local" value={birthday} onChange={onDateChange}
+                        <Text style={style.textBar} type="datetime-local" value={birthday} onChange={onDateChange}
                               InputLabelProps={{shrink: true}}/>}
-                    <TextInput label="手机号码" value={phone} onChangeText={setPhone}/>
-                    <TextInput label="邮箱" value={email} onChangeText={setEmail}/>
-                    <Button icon="content-save-edit" mode="contained" onPress={saveInfoEdit}>
+                    <TextInput style={style.textBar} label="手机号码" value={phone} onChangeText={setPhone}/>
+                    <TextInput style={style.textBar} label="邮箱" value={email} onChangeText={setEmail}/>
+                    <Button style={style.textBar} icon="content-save-edit" mode="contained" onPress={saveInfoEdit}>
                         保存个人信息
                     </Button>
-                    <Button icon="account-key" mode="contained" onPress={() => setShowChangePwd(true)}>
+                    <Button style={style.textBar} icon="account-key" mode="contained" onPress={() => setShowChangePwd(true)}>
                         修改密码
-                    </Button>
-                    <Button icon="logout" mode="contained" onPress={logout}>
-                        退出登录
                     </Button>
                 </ScreenWrapper>
             </LoadingWrapper>
