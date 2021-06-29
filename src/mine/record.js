@@ -7,14 +7,12 @@ import {Context, InitialState as state} from "../../store/reducer";
 import LoadingWrapper from "../components/LoadingWrapper";
 
 class Record {
-    constructor(id, hospital, department, date, description, doctor, status) {
+    constructor(id, hospital, department, date, status) {
         this.id = id
         this.hospital = hospital
         this.department = department
         this.date = date
         this.status = status
-        this.description = description
-        this.doctor = doctor
     }
 }
 
@@ -75,9 +73,7 @@ export default function RecordSelection() {
                     appointment.id,
                     appointment.physician.department.hospital.name,
                     appointment.physician.department.name,
-                    appointment.time.toLocaleString('zh-CN'),
-                    appointment.description,
-                    appointment.physician.name,
+                    appointment.time,
                     appointment.state
                 ));
             }
@@ -114,14 +110,9 @@ export default function RecordSelection() {
                             key={record.id}
                             title={record.hospital + ' ' + record.department}
                             left={props => <List.Icon {...props} icon={recordIconMap[record.status]}/>}
-                            description={record.date}
+                            description={record.date.toLocaleDateString('zh-CN')}
                             onPress={() => navigation.navigate('Detail', {
-                                appointmentId: record.id,
-                                doctorName: record.doctor,
-                                hospitalName: record.hospital,
-                                departmentName: record.department,
-                                timeStr: record.date,
-                                description: record.description
+                                appointmentId: record.id
                             })}
                         />
                     })}
