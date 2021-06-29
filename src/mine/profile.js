@@ -27,12 +27,12 @@ export default function UserProfile() {
     const [email, setEmail] = useState('');
     const [pwd, setPwd] = useState('');
     const [pwd2, setPwd2] = useState('');
-    const [saveDisabled, setSaveDisabled] = useState(true);
 
     const [showMessage, setShowMessage] = useState(false);
     const [message, setMessage] = useState('');
     const [isLoading, setLoading] = useState(true);
     const [showChangePwd, setShowChangePwd] = useState(false);
+
     function logout() {
         dispatch({type: 'SET_LOGOUT'})
         storeContext({loginState: false}).then()
@@ -104,10 +104,6 @@ export default function UserProfile() {
     }
 
     useEffect(() => {
-        setSaveDisabled(false);
-    }, [name, gender, birthday, phone, email]);
-
-    useEffect(() => {
         const conf = new Configuration({apiKey: state.jwtToken});
         const userApi = new UsersApi(conf);
 
@@ -140,7 +136,7 @@ export default function UserProfile() {
 
     return (
         <View style={style.container}>
-            <Appbar.Header >
+            <Appbar.Header>
                 <Appbar.BackAction onPress={() => {
                     navigation.goBack()
                 }}/>
@@ -157,23 +153,24 @@ export default function UserProfile() {
                         <ToggleButton icon="gender-transgender" value="Other"/>
                     </ToggleButton.Row>
                     <Text>{"生日"}</Text>
-                    {Platform.OS !== 'web' ? <DateTimePicker testID="dateTimePicker" value={birthday} onChange={onDateChange}
-                                                            maximumDate={Date.now()} /> :
-                                            <Text type="datetime-local" value={birthday} onChange={onDateChange}
-                                                  InputLabelProps={{shrink: true}}/>}
+                    {Platform.OS !== 'web' ?
+                        <DateTimePicker testID="dateTimePicker" value={birthday} onChange={onDateChange}
+                                        maximumDate={Date.now()}/> :
+                        <Text type="datetime-local" value={birthday} onChange={onDateChange}
+                              InputLabelProps={{shrink: true}}/>}
                     <TextInput label="手机号码" value={phone} onChangeText={setPhone}/>
                     <TextInput label="邮箱" value={email} onChangeText={setEmail}/>
+                    <Button icon="content-save-edit" mode="contained" onPress={saveInfoEdit}>
+                        保存个人信息
+                    </Button>
+                    <Button icon="account-key" mode="contained" onPress={() => setShowChangePwd(true)}>
+                        修改密码
+                    </Button>
+                    <Button icon="logout" mode="contained" onPress={logout}>
+                        退出登录
+                    </Button>
                 </ScreenWrapper>
             </LoadingWrapper>
-            <Button icon="content-save-edit" mode="contained" disabled={saveDisabled} onPress={saveInfoEdit}>
-                保存个人信息
-            </Button>
-            <Button icon="logout" mode="contained" onPress={() => setShowChangePwd(true)}>
-                修改密码
-            </Button>
-            <Button icon="logout" mode="contained" onPress={logout}>
-                退出登录
-            </Button>
             <Snackbar
                 visible={showMessage}
                 onDismiss={() => setShowMessage(false)}
@@ -181,14 +178,22 @@ export default function UserProfile() {
                 {message}
             </Snackbar>
             <Portal>
-                <Dialog visible={showChangePwd} onDismiss={() => {setShowChangePwd(false)}}>
+                <Dialog visible={showChangePwd} onDismiss={() => {
+                    setShowChangePwd(false)
+                }}>
                     <Dialog.Title>修改密码</Dialog.Title>
                     <Dialog.Content>
-                        <TextInput label="请输入新密码" value={pwd} onChangeText={setPwd}/>
-                        <TextInput label="请再次输入新密码" value={pwd2} onChangeText={setPwd2}/>
+                        <TextInput label="请输入新密码" value={pwd} onChangeText={setPwd} secureTextEntry/>
+                        <TextInput label="请再次输入新密码" value={pwd2} onChangeText={setPwd2} secureTextEntry/>
                     </Dialog.Content>
                     <Dialog.Actions>
-                        <Button onPress={() => {setShowChangePwd(false); setPwd(''); setPwd2('')}}>取消</Button>
+                        <Button onPress={() => {
+                            setShowChangePwd(false);
+                            setPwd('');
+                            setPwd2('')
+                        }}>
+                            取消
+                        </Button>
                         <Button onPress={updatePwd}>确认</Button>
                     </Dialog.Actions>
                 </Dialog>
