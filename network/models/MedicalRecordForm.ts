@@ -43,6 +43,12 @@ export interface MedicalRecordForm {
      * @memberof MedicalRecordForm
      */
     diagnosis?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MedicalRecordForm
+     */
+    prescription?: string | null;
 }
 
 export function MedicalRecordFormFromJSON(json: any): MedicalRecordForm {
@@ -59,6 +65,7 @@ export function MedicalRecordFormFromJSONTyped(json: any, ignoreDiscriminator: b
         'symptom': !exists(json, 'symptom') ? undefined : json['symptom'],
         'pastMedicalHistory': !exists(json, 'pastMedicalHistory') ? undefined : json['pastMedicalHistory'],
         'diagnosis': !exists(json, 'diagnosis') ? undefined : json['diagnosis'],
+        'prescription': !exists(json, 'prescription') ? undefined : json['prescription'],
     };
 }
 
@@ -75,6 +82,7 @@ export function MedicalRecordFormToJSON(value?: MedicalRecordForm | null): any {
         'symptom': value.symptom,
         'pastMedicalHistory': value.pastMedicalHistory,
         'diagnosis': value.diagnosis,
+        'prescription': value.prescription,
     };
 }
 

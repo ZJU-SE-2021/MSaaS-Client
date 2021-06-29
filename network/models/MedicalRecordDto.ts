@@ -49,6 +49,12 @@ export interface MedicalRecordDto {
      * @memberof MedicalRecordDto
      */
     diagnosis?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MedicalRecordDto
+     */
+    prescription?: string | null;
 }
 
 export function MedicalRecordDtoFromJSON(json: any): MedicalRecordDto {
@@ -66,6 +72,7 @@ export function MedicalRecordDtoFromJSONTyped(json: any, ignoreDiscriminator: bo
         'symptom': !exists(json, 'symptom') ? undefined : json['symptom'],
         'pastMedicalHistory': !exists(json, 'pastMedicalHistory') ? undefined : json['pastMedicalHistory'],
         'diagnosis': !exists(json, 'diagnosis') ? undefined : json['diagnosis'],
+        'prescription': !exists(json, 'prescription') ? undefined : json['prescription'],
     };
 }
 
@@ -83,6 +90,7 @@ export function MedicalRecordDtoToJSON(value?: MedicalRecordDto | null): any {
         'symptom': value.symptom,
         'pastMedicalHistory': value.pastMedicalHistory,
         'diagnosis': value.diagnosis,
+        'prescription': value.prescription,
     };
 }
 
