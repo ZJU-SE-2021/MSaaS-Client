@@ -103,13 +103,25 @@ export default function Login() {
                         onChangeText={setPassword}
                     />
                 </View>
-                <FAB
-                    style={style.button}
-                    small
-                    icon="login"
-                    label="登录"
-                    onPress={() => handleLogin()}
-                />
+                <View style={{flexDirection: "row"}}>
+                    <FAB
+                        style={style.button}
+                        icon="login"
+                        label="登录"
+                        onPress={() => handleLogin()}
+                    />
+                    <View style={{width: 20}}/>
+                    <FAB
+                        style={style.button}
+                        icon="form-select"
+                        label="注册"
+                        onPress={() => {
+                            setMessage('请前往 https://msaas.app.ncj.wiki 进行注册')
+                            setShowMessage(true)
+                        }}
+                    />
+                </View>
+
             </View>
             <Snackbar
                 visible={showMessage}
