@@ -93,6 +93,7 @@ export default function RecordSelection() {
     const recordIconMap = {
         'Finished': 'sticker-check-outline',
         'InProgress': 'medical-bag',
+        'Created': 'calendar',
     }
 
     return (
