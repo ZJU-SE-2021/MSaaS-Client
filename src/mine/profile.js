@@ -19,6 +19,7 @@ export default function UserProfile() {
     const [state, dispatch] = useContext(Context);
     const navigation = useNavigation()
 
+    const [username, setUsername] = useState('');
     const [name, setName] = useState('');
     const [gender, setGender] = useState('Male');
     const [birthday, setBirthday] = useState(new Date());
@@ -43,6 +44,7 @@ export default function UserProfile() {
 
         userApi.updateCurrentUser({
             updateUserForm: {
+                username: username,
                 name: name,
                 gender: Gender[gender],
                 birthday: birthday,
@@ -83,6 +85,12 @@ export default function UserProfile() {
 
         userApi.updateCurrentUser({
             updateUserForm: {
+                username: username,
+                name: name,
+                gender: Gender[gender],
+                birthday: birthday,
+                phone: phone,
+                email: email,
                 password: pwd
             }
         }).then(res => {
@@ -104,11 +112,24 @@ export default function UserProfile() {
         const userApi = new UsersApi(conf);
 
         userApi.getCurrentUser().then(res => {
-            setName(res.name);
-            setBirthday(res.birthday);
-            setGender(res.gender);
-            setEmail(res.email);
-            setPhone(res.phone);
+            if (res.username !== undefined) {
+                setUsername(res.username);
+            }
+            if (res.name !== undefined) {
+                setName(res.name);
+            }
+            if (res.birthday !== undefined) {
+                setBirthday(res.birthday);
+            }
+            if (res.gender !== undefined) {
+                setGender(res.gender);
+            }
+            if (res.email !== undefined) {
+                setEmail(res.email);
+            }
+            if (res.phone !== undefined) {
+                setPhone(res.phone);
+            }
             setLoading(false);
         }, reason => {
             setMessage('获取个人信息失败');
