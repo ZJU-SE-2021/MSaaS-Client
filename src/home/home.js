@@ -1,49 +1,22 @@
-import {Appbar, Card, Paragraph, Title} from 'react-native-paper';
+import {Appbar, Card, Paragraph, Snackbar, Title} from 'react-native-paper';
 import {StyleSheet, View, Text} from "react-native";
-import React, {useContext, useEffect} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {useNavigation} from "@react-navigation/native";
-import {Configuration, UsersApi} from "../../network";
+import {AppointmentsApi, Configuration, SummaryApi, UsersApi} from "../../network";
 import {Context} from "../../store/reducer";
 import ScreenWrapper from "../components/ScreenWrapper";
+import LoadingWrapper from "../components/LoadingWrapper";
 
 const style = StyleSheet.create({
     greeting: {
         paddingTop: 10,
-        fontSize : 20
+        fontSize: 20
     },
     cards: {
-        marginBottom : 10,
-        marginHorizontal : 10,
-    },
-    rxList: {
-        flexDirection : 'row'
-    },
-    rxUsage: {
-        position : 'absolute',
-        right : 0
+        marginBottom: 10,
+        marginHorizontal: 10,
     }
 })
-
-class Rx {
-    constructor(rxName, timesPerDay, volumePerTime) {
-        this.rxName = rxName
-        this.timesPerDay = timesPerDay
-        this.volumePerTime = volumePerTime
-    }
-}
-
-const appointment = {
-    time : new Date("2021/6/25 9:30"),
-    doctor : "王医生",
-    hospital : "杭州市综合医院",
-    department : "呼吸科"
-}
-
-const prescription = {
-    doctor : "王医生",
-    rxes : [new Rx("伪麻黄碱", 3, "1粒"), new Rx("对乙酰氨基酚", 2, "1粒"), new Rx("氨溴索口服液", 2, "10mL")],
-    comment : "避免过度劳累，避免辛辣食品，推荐户外运动。"
-}
 
 const pic = require('../../assets/undraw_doctors_hwty.png')
 
@@ -51,12 +24,68 @@ export default function Home() {
     const navigation = useNavigation()
     const [state, dispatch] = useContext(Context)
 
-    useEffect( () => {
+    const [showRecentApp, setShowRecentApp] = useState(false);
+    const [recentAppTime, setRecentAppTime] = useState(new Date());
+    const [recentAppDoctor, setRecentAppDoctor] = useState('');
+    const [recentAppHospital, setRecentAppHospital] = useState('');
+    const [recentAppDepart, setRecentAppDepart] = useState('');
+    const [recentAppId, setRecentAppId] = useState(0);
+
+    const [showRecentMedRec, setShowRecentMedRec] = useState(false);
+    const [recentMedRecDoctor, setRecentMedDoctor] = useState('');
+    const [recentMedRecDiagnosis, setRecentMedRecDiagnosis] = useState('');
+    const [recentMedRecPres, setRecentMedRecPres] = useState('');
+
+    const [showMessage, setShowMessage] = useState(false);
+    const [message, setMessage] = useState('');
+    const [isLoading, setLoading] = useState(true);
+
+    const getRecentAppDateStr = () => {
+        const days = parseInt((recentAppTime.getDate() - (new Date().getDate())));
+        return days === 0 ? '今天' : `${days}天后`;
+    }
+
+    useEffect(() => {
         const conf = new Configuration({apiKey: state.jwtToken})
-        const userApi = new UsersApi(conf)
-        userApi.getCurrentUser().then(res => {
-            console.log(res)
-        })
+        const summaryApi = new SummaryApi(conf);
+
+        summaryApi.getSummary().then(res => {
+            if (res.recentAppointment === undefined) {
+                setShowRecentApp(false);
+            } else {
+                setShowRecentApp(true);
+                setRecentAppTime(res.recentAppointment.time);
+                setRecentAppDoctor(res.recentAppointment.physician.name);
+                setRecentAppHospital(res.recentAppointment.physician.department.hospital.name);
+                setRecentAppDepart(res.recentAppointment.physician.department.name);
+                setRecentAppId(res.recentAppointment.id);
+            }
+
+            if (res.recentMedicalRecord === undefined) {
+                setShowRecentMedRec(false);
+            } else {
+                const appointmentsApi = new AppointmentsApi(conf);
+                appointmentsApi.getAppointmentById({
+                    id: res.recentMedicalRecord.appointmentId
+                }).then(appRes => {
+                    setShowRecentMedRec(true);
+                    setRecentMedDoctor(appRes.physician.name);
+                    setRecentMedRecDiagnosis(res.recentMedicalRecord.diagnosis);
+                    setRecentMedRecPres(res.recentMedicalRecord.prescription);
+                }, reason => {
+                    setMessage('获取近期信息失败');
+                    setLoading(false);
+                    setShowRecentMedRec(false);
+                    setShowMessage(true);
+                })
+            }
+
+            setLoading(false);
+        }, reason => {
+            setMessage('获取近期信息失败');
+            setLoading(false);
+            setShowMessage(true);
+        });
     }, [])
 
     return (
@@ -64,45 +93,55 @@ export default function Home() {
             <Appbar.Header>
                 <Appbar.Content title="MSaaS" subtitle="智能医疗系统"/>
             </Appbar.Header>
-            <ScreenWrapper>
-                <Card style={ style.cards }>
-                    <Card.Cover source={pic}/>
-                    <Card.Content>
-                        <Title style={ style.greeting }>你好，{state.userProfile.name}!</Title>
-                        <Paragraph>欢迎使用 MSaaS 智能互联网医疗系统！</Paragraph>
-                    </Card.Content>
-                </Card>
-                <Card style={ style.cards } onPress={() => navigation.navigate('ChatterBot')}>
-                    <Card.Title title="智能诊疗" subtitle="快速为您推荐合适的诊疗方案。"/>
-                </Card>
-                <Card style={ style.cards } onPress={() => navigation.navigate('Detail')}>
-                    <Card.Title title={ parseInt((appointment.time - (new Date())) / (24*3600*1000)) + '天后的诊疗预约' }/>
-                    <Card.Content>
-                        <Text>{ appointment.doctor }</Text>
-                        <Text>{ appointment.time.toLocaleString('zh-CN', { hour12 : false }) }</Text>
-                        <Text>{ appointment.hospital + ' | ' + appointment.department }</Text>
-                    </Card.Content>
-                </Card>
-                <Card style={ style.cards }>
-                    <Card.Title title={ prescription.doctor + '开具的处方' }/>
-                    <Card.Content>
-                        { prescription.rxes.map((rx, index) => {
-                            return (
-                                <View key={ index } style={ style.rxList }>
-                                    <Text>{ rx.rxName }</Text>
-                                    <Text style={ style.rxUsage }>{ ' 1日' + rx.timesPerDay + '次，1次' + rx.volumePerTime }</Text>
-                                </View>
-                            )
-                        }) }
-                    </Card.Content>
-                </Card>
-                <Card style={ style.cards }>
-                    <Card.Title title={ prescription.doctor + '的医嘱' }/>
-                    <Card.Content>
-                        <Text>{ prescription.comment }</Text>
-                    </Card.Content>
-                </Card>
-            </ScreenWrapper>
+            <LoadingWrapper isLoading={isLoading}>
+                <ScreenWrapper>
+                    <Card style={style.cards}>
+                        <Card.Cover source={pic}/>
+                        <Card.Content>
+                            <Title style={style.greeting}>你好，{state.userProfile.name}!</Title>
+                            <Paragraph>欢迎使用 MSaaS 智能互联网医疗系统！</Paragraph>
+                        </Card.Content>
+                    </Card>
+                    <Card style={style.cards} onPress={() => navigation.navigate('ChatterBot')}>
+                        <Card.Title title="智能诊疗" subtitle="快速为您推荐合适的诊疗方案。"/>
+                    </Card>
+                    {
+                        showRecentApp ?
+                            <Card style={style.cards} onPress={() => navigation.navigate('Detail', {
+                                appointmentId: recentAppId
+                            })}>
+                                <Card.Title
+                                    title={getRecentAppDateStr() + '的诊疗预约'}/>
+                                <Card.Content>
+                                    <Text>{recentAppDoctor}</Text>
+                                    <Text>{recentAppTime.toLocaleString('zh-CN', {hour12: false})}</Text>
+                                    <Text>{recentAppHospital + ' | ' + recentAppDepart}</Text>
+                                </Card.Content>
+                            </Card> : <></>
+                    }
+                    {
+                        showRecentMedRec ?
+                            <><Card style={style.cards}>
+                                <Card.Title title={recentMedRecDoctor + '医生开具的处方'}/>
+                                <Card.Content>
+                                    <Text>{recentMedRecPres}</Text>
+                                </Card.Content>
+                            </Card>
+                                <Card style={style.cards}>
+                                    <Card.Title title={recentMedRecDoctor + '医生的医嘱'}/>
+                                    <Card.Content>
+                                        <Text>{recentMedRecDiagnosis}</Text>
+                                    </Card.Content>
+                                </Card></> : <></>
+                    }
+                </ScreenWrapper>
+            </LoadingWrapper>
+            <Snackbar
+                visible={showMessage}
+                onDismiss={() => setShowMessage(false)}
+            >
+                {message}
+            </Snackbar>
         </View>
     )
 }
