@@ -5,7 +5,7 @@ import {Context} from "../../store/reducer";
 import {StyleSheet, View} from "react-native";
 import {useNavigation, useRoute} from "@react-navigation/native";
 import ScreenWrapper from "../components/ScreenWrapper";
-import {AppointmentsApi, Configuration} from "../../network";
+import {AppointmentsApi, Configuration, UsersApi} from "../../network";
 import LoadingWrapper from "../components/LoadingWrapper";
 
 const style = StyleSheet.create({
@@ -100,7 +100,6 @@ export default function Detail() {
                                 <>
                                     <Divider />
                                     <Title>诊疗记录</Title>
-                                    <Paragraph> {`医生诊断：${symptom}`}</Paragraph>
                                     <Paragraph> {`医生诊断：${symptom}`}</Paragraph>
                                     <Paragraph> {`过往病史: ${pastMedicalHistory}`} </Paragraph>
                                     <Paragraph> {`医嘱: ${diagnosis}`} </Paragraph>

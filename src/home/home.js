@@ -21,8 +21,10 @@ const style = StyleSheet.create({
 const pic = require('../../assets/undraw_doctors_hwty.png')
 
 export default function Home() {
-    const navigation = useNavigation()
-    const [state, dispatch] = useContext(Context)
+    const navigation = useNavigation();
+    const [state, dispatch] = useContext(Context);
+
+    const [name, setName] = useState('');
 
     const [showRecentApp, setShowRecentApp] = useState(false);
     const [recentAppTime, setRecentAppTime] = useState(new Date());
@@ -46,9 +48,17 @@ export default function Home() {
     }
 
     useEffect(() => {
-        const conf = new Configuration({apiKey: state.jwtToken})
-        const summaryApi = new SummaryApi(conf);
+        const conf = new Configuration({apiKey: state.jwtToken});
 
+        const usersApi = new UsersApi(conf);
+        usersApi.getCurrentUser().then(res => {
+            setName(res.name);
+        }, reason => {
+            setMessage('用户信息获取失败');
+            setShowMessage(true);
+        })
+
+        const summaryApi = new SummaryApi(conf);
         summaryApi.getSummary().then(res => {
             if (res.recentAppointment === undefined) {
                 setShowRecentApp(false);
@@ -98,7 +108,7 @@ export default function Home() {
                     <Card style={style.cards}>
                         <Card.Cover source={pic}/>
                         <Card.Content>
-                            <Title style={style.greeting}>你好，{state.userProfile.name}!</Title>
+                            <Title style={style.greeting}>你好，{name}!</Title>
                             <Paragraph>欢迎使用 MSaaS 智能互联网医疗系统！</Paragraph>
                         </Card.Content>
                     </Card>
