@@ -9,7 +9,7 @@ import newAppointment from "./appointments/newAppointment";
 import Detail from "./mine/detail";
 import UserProfile from "./mine/profile";
 import DoctorChat from "./mine/doctorChat";
-// import VideoChat from "./mine/videoChat";
+import VideoChat from "./mine/videoChat";
 
 const Stack = createStackNavigator();
 
@@ -25,7 +25,7 @@ export default function Entrypoint() {
                 <Stack.Screen name='Detail' component={Detail}/>
                 <Stack.Screen name='UserProfile' component={UserProfile}/>
                 <Stack.Screen name='DoctorChat' component={DoctorChat}/>
-                {/*<Stack.Screen name='VideoChat' component={VideoChat}/>*/}
+                <Stack.Screen name='VideoChat' component={VideoChat}/>
             </Stack.Navigator>
         </NavigationContainer>
     )

@@ -158,7 +158,7 @@
 				LastUpgradeCheck = 1130;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = QX5929BB3S;
+						DevelopmentTeam = YV5H7TSSV7;
 						LastSwiftMigration = 1120;
 					};
 				};
@@ -355,7 +355,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = MSaaSClient/wiki.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = QX5929BB3S;
+				DEVELOPMENT_TEAM = YV5H7TSSV7;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -369,7 +369,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = massa.app.ncj.wiki;
+				PRODUCT_BUNDLE_IDENTIFIER = v1.massa.app.ncj.wiki;
 				PRODUCT_NAME = wiki;
 				SWIFT_OBJC_BRIDGING_HEADER = "MSaaSClient/MSaaSClient-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -387,7 +387,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = MSaaSClient/wiki.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = QX5929BB3S;
+				DEVELOPMENT_TEAM = YV5H7TSSV7;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = MSaaSClient/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -397,7 +397,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = massa.app.ncj.wiki;
+				PRODUCT_BUNDLE_IDENTIFIER = v1.massa.app.ncj.wiki;
 				PRODUCT_NAME = wiki;
 				SWIFT_OBJC_BRIDGING_HEADER = "MSaaSClient/MSaaSClient-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
