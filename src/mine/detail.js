@@ -98,17 +98,22 @@ export default function Detail() {
                             <Paragraph>{`症状描述：${description}`}</Paragraph>
                             {showMedRec ?
                                 <>
-                                    <Divider />
+                                    <Divider/>
                                     <Title>诊疗记录</Title>
                                     <Paragraph> {`医生诊断：${symptom}`}</Paragraph>
                                     <Paragraph> {`过往病史: ${pastMedicalHistory}`} </Paragraph>
                                     <Paragraph> {`医嘱: ${diagnosis}`} </Paragraph>
                                     <Paragraph> {`处方: ${prescription}`} </Paragraph>
                                 </>
-                                 : <></>
+                                : <></>
                             }
                             <Button icon="message-bulleted" mode="contained"
-                                    onPress={() => navigation.navigate('DoctorChat', {appointmentId: route.params.appointmentId})}>
+                                    onPress={() => navigation.navigate('DoctorChat',
+                                        {
+                                            appointmentId: route.params.appointmentId,
+                                            doctorName
+                                        })
+                                    }>
                                 联系医生
                             </Button>
                         </Card.Content>
