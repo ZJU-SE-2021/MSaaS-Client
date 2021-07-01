@@ -43,6 +43,21 @@ export function ChatterBot() {
             })
             .catch((error) => {
                 console.error(error);
+                // retry
+                fetch(`https://msaas.app.ncj.wiki/api/chatterbot?question=${messages[0].text}`)
+                    .then((response) => response.json())
+                    .then((json) => {
+                        setMessages(previousMessages => GiftedChat.append(previousMessages, [{
+                            _id: uuid(),
+                            createdAt: Date.now(),
+                            text: json.answer,
+                            user: {
+                                _id: 2,
+                                name: 'MSaaS Bot',
+                                avatar: 'https://placeimg.com/140/140/tech',
+                            }
+                        }]))
+                    })
             });
     }, [])
 
