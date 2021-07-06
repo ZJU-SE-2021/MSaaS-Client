@@ -850,137 +850,287 @@ exports[`<App /> render result 1`] = `
         </View>
       </View>
       <View
-        pointerEvents="auto"
         style={
           Object {
-            "backgroundColor": "#f1c40f",
-            "borderRadius": 28,
-            "elevation": 6,
-            "marginTop": 20,
-            "opacity": 1,
-            "shadowColor": "#000000",
-            "shadowOffset": Object {
-              "height": 5,
-              "width": 0,
-            },
-            "shadowOpacity": 0.24,
-            "shadowRadius": 6,
-            "transform": Array [
-              Object {
-                "scale": 1,
-              },
-            ],
+            "flexDirection": "row",
           }
         }
       >
         <View
-          accessibilityLabel="登录"
-          accessibilityRole="button"
-          accessibilityState={
-            Object {
-              "disabled": undefined,
-            }
-          }
-          accessible={true}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
+          pointerEvents="auto"
           style={
-            Array [
-              Object {
-                "overflow": "hidden",
+            Object {
+              "backgroundColor": "#f1c40f",
+              "borderRadius": 28,
+              "elevation": 6,
+              "marginTop": 20,
+              "opacity": 1,
+              "shadowColor": "#000000",
+              "shadowOffset": Object {
+                "height": 5,
+                "width": 0,
               },
-              Object {
-                "borderRadius": 28,
-              },
-            ]
+              "shadowOpacity": 0.24,
+              "shadowRadius": 6,
+              "transform": Array [
+                Object {
+                  "scale": 1,
+                },
+              ],
+            }
           }
         >
           <View
-            pointerEvents="none"
+            accessibilityLabel="登录"
+            accessibilityRole="button"
+            accessibilityState={
+              Object {
+                "disabled": undefined,
+              }
+            }
+            accessible={true}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
             style={
               Array [
                 Object {
-                  "alignItems": "center",
-                  "flexDirection": "row",
-                  "justifyContent": "center",
+                  "overflow": "hidden",
                 },
                 Object {
-                  "height": 48,
-                  "paddingHorizontal": 16,
+                  "borderRadius": 28,
                 },
               ]
             }
           >
             <View
+              pointerEvents="none"
               style={
                 Array [
                   Object {
                     "alignItems": "center",
+                    "flexDirection": "row",
                     "justifyContent": "center",
                   },
                   Object {
-                    "height": 24,
-                    "width": 24,
+                    "height": 48,
+                    "paddingHorizontal": 16,
                   },
                 ]
               }
             >
               <View
                 style={
-                  Object {
-                    "bottom": 0,
-                    "left": 0,
-                    "opacity": 1,
-                    "position": "absolute",
-                    "right": 0,
-                    "top": 0,
-                    "transform": Array [
-                      Object {
-                        "rotate": "0deg",
-                      },
-                    ],
-                  }
+                  Array [
+                    Object {
+                      "alignItems": "center",
+                      "justifyContent": "center",
+                    },
+                    Object {
+                      "height": 24,
+                      "width": 24,
+                    },
+                  ]
                 }
               >
-                <Text />
+                <View
+                  style={
+                    Object {
+                      "bottom": 0,
+                      "left": 0,
+                      "opacity": 1,
+                      "position": "absolute",
+                      "right": 0,
+                      "top": 0,
+                      "transform": Array [
+                        Object {
+                          "rotate": "0deg",
+                        },
+                      ],
+                    }
+                  }
+                >
+                  <Text />
+                </View>
               </View>
+              <Text
+                selectable={false}
+                style={
+                  Array [
+                    Object {
+                      "color": "#000000",
+                      "fontFamily": "System",
+                      "fontWeight": "400",
+                    },
+                    Object {
+                      "textAlign": "left",
+                    },
+                    Array [
+                      Object {
+                        "marginHorizontal": 8,
+                      },
+                      Object {
+                        "textTransform": "uppercase",
+                      },
+                      Object {
+                        "color": "rgba(0, 0, 0, .54)",
+                        "fontFamily": "System",
+                        "fontWeight": "500",
+                      },
+                    ],
+                  ]
+                }
+              >
+                登录
+              </Text>
             </View>
-            <Text
-              selectable={false}
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "width": 20,
+            }
+          }
+        />
+        <View
+          pointerEvents="auto"
+          style={
+            Object {
+              "backgroundColor": "#f1c40f",
+              "borderRadius": 28,
+              "elevation": 6,
+              "marginTop": 20,
+              "opacity": 1,
+              "shadowColor": "#000000",
+              "shadowOffset": Object {
+                "height": 5,
+                "width": 0,
+              },
+              "shadowOpacity": 0.24,
+              "shadowRadius": 6,
+              "transform": Array [
+                Object {
+                  "scale": 1,
+                },
+              ],
+            }
+          }
+        >
+          <View
+            accessibilityLabel="注册"
+            accessibilityRole="button"
+            accessibilityState={
+              Object {
+                "disabled": undefined,
+              }
+            }
+            accessible={true}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Array [
+                Object {
+                  "overflow": "hidden",
+                },
+                Object {
+                  "borderRadius": 28,
+                },
+              ]
+            }
+          >
+            <View
+              pointerEvents="none"
               style={
                 Array [
                   Object {
-                    "color": "#000000",
-                    "fontFamily": "System",
-                    "fontWeight": "400",
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                    "justifyContent": "center",
                   },
                   Object {
-                    "textAlign": "left",
+                    "height": 48,
+                    "paddingHorizontal": 16,
                   },
-                  Array [
-                    Object {
-                      "marginHorizontal": 8,
-                    },
-                    Object {
-                      "textTransform": "uppercase",
-                    },
-                    Object {
-                      "color": "rgba(0, 0, 0, .54)",
-                      "fontFamily": "System",
-                      "fontWeight": "500",
-                    },
-                  ],
                 ]
               }
             >
-              登录
-            </Text>
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "center",
+                      "justifyContent": "center",
+                    },
+                    Object {
+                      "height": 24,
+                      "width": 24,
+                    },
+                  ]
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "bottom": 0,
+                      "left": 0,
+                      "opacity": 1,
+                      "position": "absolute",
+                      "right": 0,
+                      "top": 0,
+                      "transform": Array [
+                        Object {
+                          "rotate": "0deg",
+                        },
+                      ],
+                    }
+                  }
+                >
+                  <Text />
+                </View>
+              </View>
+              <Text
+                selectable={false}
+                style={
+                  Array [
+                    Object {
+                      "color": "#000000",
+                      "fontFamily": "System",
+                      "fontWeight": "400",
+                    },
+                    Object {
+                      "textAlign": "left",
+                    },
+                    Array [
+                      Object {
+                        "marginHorizontal": 8,
+                      },
+                      Object {
+                        "textTransform": "uppercase",
+                      },
+                      Object {
+                        "color": "rgba(0, 0, 0, .54)",
+                        "fontFamily": "System",
+                        "fontWeight": "500",
+                      },
+                    ],
+                  ]
+                }
+              >
+                注册
+              </Text>
+            </View>
           </View>
         </View>
       </View>
